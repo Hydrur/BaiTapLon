@@ -11,7 +11,7 @@ const bookSchema = new mongoose.Schema({
     author: String,
     slug: {
         type: String,
-        slug: "title",
+        slug: "bookTitle",
         unique: true
     },
     deleted: {

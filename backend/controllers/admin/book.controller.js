@@ -1,273 +1,123 @@
 const Book = require("../../models/book.model");
 const ApiError = require('../../helpers/api-error');
 
-const searchHelper = require('../../helpers/search');
-const paginationHelper = require('../../helpers/pagination');
 
-
-// [GET] /admin/books
-module.exports.index = async (req, res, next) => {
+const createBook = async (req, res) => {
   try {
+    const book = await Book.create({
+      ...req.body,
+      // image: req.file ? req.file.filename : null
+    });
 
-    const searchCriterias = {
-      deleted: false,
-    } 
-
-    const objectSearch = searchHelper(req.query);
-
-    if (objectSearch.keyword) {
-      searchCriterias.bookTitle = objectSearch.regex;
-    }  
-
-    // PAGINATION
-    let initPaginationObject = {
-      limitItems: 5,
-      currentPage: 1,
-      totalPage: null
-    }
-    const booksCount = await Book.countDocuments(searchCriterias);
-    const paginationObj = paginationHelper(initPaginationObject, req.query, booksCount); 
-
-    // SORT
-    let sort = {};
-    if (req.query.sortKey && req.query.sortValue) {
-      sort[req.query.sortKey] = req.query.sortValue;
-    } else {
-      sort.position = 'desc';
-    }
-    // END SORT
-
-    const books = await Book.find(searchCriterias)
-      .sort(sort)
-      .limit(paginationObj.limitItems)
-      .skip(paginationObj.skip);
-
-    res.send({
-      books: books,
-      pagination: paginationObj,
-    })
-    // res.send(products)
-
+    res.status(200).json({ message: 'Book added successfully', book });
   } catch (error) {
-    console.log('Error occured:', error);
-    return next(
-      new ApiError(500, error)
-    );
+    res.status(500).json({ error: error.message });
   }
 }
 
-// // [GET] /admin/products/product-list
-// module.exports.getProductList = async (req, res, next) => {
-//   try {
-//     // const ids = req.body;
-//     console.log("req.body:", req.body)
+const getAll = async (req, res) => {
+  try {
+    const book = await Book.find({});
+    res.status(200).json(book);
+  } catch (error) {
+    res.status(500);
+    throw new Error(error.message)
+  }
+}
 
-//     // const productList = await Products.find({ _id: { $in: ids } });
+const getOne = async (req, res) => {
+  try {
+    const book = await Book.findById(req.params.id)
+    if (!book) {
+      res.status(404).json({ message: `Can not find book with ID: ${req.params.id}` })
+    }
+    res.status(200).json(book);
+  } catch (error) {
+    res.status(500);
+    throw new Error(error.message)
+  }
+}
 
-//     // res.send({ 
-//     //   success: true,
-//     //   productList: productList
-//     // });
+const updateOne = async (req, res) => {
+  try {
 
-//   } catch (error) {
-//     console.error('Error occurred:', error);
-//     return next(new ApiError(500, error));
-//   }
-// };
+    const bookId = req.params.id;
+    const existingBook = await Book.findById(bookId);
 
-// // [GET] /admin/products/edit/:id
-// module.exports.edit = async (req, res, next) => {
-//   try {
-//     const id = req.params.id;
-    
-//     const product = await Products.findOne({
-//       _id: id,
-//       deleted: false
-//     })
+    if (!existingBook) {
+      return res.status(404).json({ message: `Cannot find book with ID: ${bookId}` });
+    }
 
-//     // const category = await ProductCategory.find({ deleted: false });
-//     // const newCategory = createTreeHelper.tree(category);
+    // Check if a new image file is uploaded
+    // if (req.file) {
+    //   // Remove the old image file
+    //   if (existingBook.image) {
+    //     const imagePath = path.join(__dirname, '..', 'uploads', existingBook.image);
+    //     fs.unlink(imagePath, (err) => {
+    //       if (err) {
+    //         console.error(`Error deleting old image file: ${err}`);
+    //       } else {
+    //         console.log(`Old image file deleted: ${existingBook.image}`);
+    //       }
+    //     });
+    //   }
+    // }
 
-//     res.json(product)
-
-//   } catch (error) {
-//     return next(
-//       new ApiError(500, error)
-//     );
-//   }
-// }
-
-// // [PATCH] /admin/products/change-status/:status/:id
-// module.exports.changeStatus = async (req, res, next) => {
-//   try {
-//     let id = req.params.id;
-//     let status = req.params.status;
-
-//     // const updatedBy = {
-//     //   account_id: res.locals.user.id,
-//     //   updatedAt: new Date()
-//     // }
-
-//     await Products.updateOne(
-//       { _id:  id}, 
-//       { 
-//         status: status,
-//         // $push: { updatedBy: updatedBy }
-//       }
-//     );
-
-//     res.send(true)
-
-//   } catch (error) {
-//     return next(
-//       new ApiError(500, error)
-//     );
-//   }
-// }
+    const data = {
+      ...req.body,
+      // image: req.file ? req.file.filename : existingBook.image
+    };
+    const book = await Book.findByIdAndUpdate(bookId, data, { new: true })
+    if (!book) {
+      res.status(404).json({ message: `Can not find book with ID: ${req.params.id}` })
+    }
+    res.status(200).json({ message: "Book was updated" });
+  } catch (error) {
+    res.status(500);
+    throw new Error(error.message)
+  }
+}
 
 
-// // [POST] /admin/products/create
-// module.exports.createPost = async (req, res, next) => {
-//   try {
-//     let product = JSON.parse(JSON.stringify(req.body.product));
-     
-//     if (product.price) 
-//       product.price = parseInt(product.price);
-//     if (product.discountPercentage)
-//       product.discountPercentage = parseInt(product.discountPercentage);
-//     if (product.stock)
-//       product.stock = parseInt(product.stock);
-    
-//     if (!product.position) {
-//       const countProducts = await Products.countDocuments();
-//       product.position = countProducts + 1;
-//     } else {
-//       product.position = parseInt(product.position);
-//     }
-    
-//     if (req.file) { 
-//       product.thumbnail = req.body[req.file.fieldname];
-//     }    
+const deleteOne = async (req, res) => {
+  try {
+    const book = await Book.findByIdAndDelete(req.params.id, req.body)
+    if (!book) {
+      res.status(404).json({ message: `Can not find book with ID: ${req.params.id}` })
+    }
+    // const imagePath = path.join(__dirname, '..', 'uploads', book.image);
 
-//     // // req.body.createdBy = {
-//     // //   account_id: res.locals.user.id
-//     // // };
+    // if (book.image) {
+    //   fs.unlink(imagePath, (err) => {
+    //     if (err) {
+    //       console.error(`Error deleting image file: ${err}`);
+    //     } else {
+    //       console.log(`Image file deleted: ${product.image}`);
+    //     }
+    //   });
+    // }
+    res.status(200).json({ message: `Book with ID: ${req.params.id} was deleted` });
+  } catch (error) {
+    res.status(500);
+    throw new Error(error.message)
+  }
+}
 
-//     const newProduct = new Products(product); 
-//     await newProduct.save();
+const deleteAll = async (req, res) => {
+  try {
+    const result = await Book.deleteMany({});
+    res.status(200).json({ message: `Deleted ${result.deletedCount} books.` });
+  } catch (error) {
+    res.status(500);
+    throw new Error(error.message)
+  }
+}
 
-//     res.send({
-//       success: true
-//     });
-
-//   } catch (error) {
-//     return next(
-//       new ApiError(500, error)
-//     );
-//   }
-// }
-
-
-// // [PATCH] /admin/products/edit/:id
-// module.exports.editPatch = async (req, res, next) => {
-//   try {
-//     const id = req.params.id;
-    
-//     if (req.file && req.file.filename) { 
-//       req.body.thumbnail = `/uploads/${req.file.filename}`
-//     }    
-
-//     await Products.updateOne(
-//       { _id: id, },
-//       { 
-//         ...req.body.product,
-//       }
-//     )
-
-//     res.send(true);
-
-//   } catch (error) {
-//     return next(
-//       new ApiError(500, error)
-//     );
-//   }
-// }
-
-// // [DELETE] /admin/products/delete/:id
-// module.exports.deleteItem = async (req, res, next) => {
-//   try {
-//     const id = req.params.id;
-
-//     await Products.updateOne({ _id: id }, { 
-//       deleted: true,
-//       // deletedBy: {
-//       //   account_id: res.locals.user.id,
-//       //   deletedAt: new Date()
-//       // }
-//     });
-
-//     res.send(true);
-
-//   } catch (error) {
-//     return next(
-//       new ApiError(500, error)
-//     );
-//   }
-// }
-
-// // [PATCH] /admin/products/multi-change/:status/:id
-// module.exports.multiChange = async (req, res, next) => {
-//   try {
-//     const type = req.body.type;
-//     const ids = req.body.checkedIds;
-
-//     // const updatedBy = {
-//     //   account_id: res.locals.user.id,
-//     //   updatedAt: new Date()
-//     // }
-
-//     switch(type) {
-//       case "active":
-//       case "inactive":  
-//         await Products.updateMany(
-//           { _id: {$in: ids} }, 
-//           { 
-//             status: type,
-//             // $push: { updatedBy: updatedBy }
-//           }
-//         );
-//         break;
-
-//       case "delete-all":  
-//         await Products.updateMany({ _id: {$in: ids} }, { 
-//           deleted: true,
-//           // deletedBy: {
-//           //   account_id: res.locals.user.id,
-//           //   deletedAt: new Date()
-//           // }
-//         });
-
-//       case "change-position":
-//         for (const item of ids) {
-//           const [id, position] = item.split('-');
-//           await Products.updateOne(
-//             { _id: id }, 
-//             { 
-//               position: position,
-//               // $push: { updatedBy: updatedBy }
-//             }
-//           );
-//         }
-//         break;
-        
-//       default:
-//         break;
-//     } 
-//     res.send(true)
-
-//   } catch (error) {
-//     return next(
-//       new ApiError(500, error)
-//     );
-//   }
-// }
+module.exports = {
+  createBook,
+  getAll,
+  getOne,
+  updateOne,
+  deleteOne,
+  deleteAll,
+} 

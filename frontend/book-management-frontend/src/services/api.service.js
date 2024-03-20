@@ -1,17 +1,14 @@
-import axios from 'axios';
+import axios from "axios";
 
 const commonConfig = {
-  headers: {
-    "Content-Type": "application/json",
-    Accept: "application/json",
-  },
+    headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+    },
 };
-
-export default (baseURL) => {   
-  const instance = axios.create({
-    baseURL,
-    ...commonConfig,
-  });
-
-  return instance;
+export default (baseURL) => {
+    return axios.create({
+        baseURL,
+        ...commonConfig,
+    });
 };
