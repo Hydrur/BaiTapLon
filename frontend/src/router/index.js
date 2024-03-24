@@ -20,23 +20,23 @@ import { createWebHistory, createRouter } from "vue-router";
 
 const routes = [
   {
-    path: "/",
+    path: "/admin",
     name: "book",
     component: () => import("@/views/admin/pages/books/Book.vue"),
   },
   {
-    path: "/:pathMatch(.*)*",
+    path: "/admin/admin:pathMatch(.*)*",
     name: "notfound",
     component: () => import("@/views/admin/pages/books/NotFound.vue"),
   },
   {
-    path: "/books/:id",
+    path: "/admin/books/:id",
     name: "book.edit",
     component: () => import("@/views/admin/pages/books/BookEdit.vue"),
     props: true // Truyền các biến trong $route.params vào làm props
   },
   {
-    path: "/books/create",
+    path: "/admin/books/create",
     name: "book.add",
     component: () => import("@/views/admin/pages/books/CreateBook.vue"),
     props: true // Truyền các biến trong $route.params vào làm props
