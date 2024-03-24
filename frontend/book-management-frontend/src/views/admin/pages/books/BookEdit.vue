@@ -1,36 +1,36 @@
 <template>
-  <div v-if="contact" class="page">
-    <h4>Hiệu chỉnh Liên hệ</h4>
-    <ContactForm
-      :contact="contact"
-      @submit:contact="updateContact"
-      @delete:contact="deleteContact"
+  <div v-if="book" class="page">
+    <h4>Hiệu chỉnh Sách</h4>
+    <BookForm
+      :book="book"
+      @submit:book="updateBook"
+      @delete:book="deleteBook"
     />
     <p>{{ message }}</p>
   </div>
 </template>
   
 <script>
-import ContactForm from "@/components/ContactForm.vue";
-import ContactService from "@/services/contact.service";
+import BookForm from "@/components/admin/BookForm.vue";
+import BookService from "@/services/admin/book.service";
 
 export default {
   components: {
-    ContactForm,
+    BookForm,
   },
   props: {
     id: { type: String, required: true },
   },
   data() {
     return {
-      contact: null,
+      book: null,
       message: "",
     };
   },
   methods: {
-    async getContact(id) {
+    async getBook(id) {
       try {
-        this.contact = await ContactService.get(id);
+        this.book = await BookService.get(id);
       } catch (error) {
         console.log(error);
         // Chuyển sang trang NotFound đồng thời giữ cho URL không đổi
@@ -45,20 +45,20 @@ export default {
       }
     },
 
-    async updateContact(data) {
+    async updateBook(data) {
       try {
-        await ContactService.update(this.contact._id, data);
+        await BookService.update(this.book._id, data);
         this.message = "Liên hệ được cập nhật thành công.";
       } catch (error) {
         console.log(error);
       }
     },
 
-    async deleteContact() {
+    async deleteBook() {
       if (confirm("Bạn muốn xóa Liên hệ này?")) {
         try {
-          await ContactService.delete(this.contact._id);
-          this.$router.push({ name: "contactbook" });
+          await BookService.delete(this.book._id);
+          this.$router.push({ name: "book" });
         } catch (error) {
           console.log(error);
         }
@@ -66,7 +66,7 @@ export default {
     },
   },
   created() {
-    this.getContact(this.id);
+    this.getBook(this.id);
     this.message = "";
   },
 };

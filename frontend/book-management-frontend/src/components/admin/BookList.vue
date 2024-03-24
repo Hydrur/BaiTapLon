@@ -2,12 +2,12 @@
     <ul class="list-group">
         <li
             class="list-group-item"
-            v-for="(contact, index) in contacts"
-            :key="contact._id"
+            v-for="(book, index) in books"
+            :key="book._id"
             :class="{ active: index === activeIndex }"
             @click="updateActiveIndex(index)"
         >
-            {{ contact.name }}
+            {{ book.bookTitle }}
         </li>
     </ul>
 </template>
@@ -15,7 +15,7 @@
 <script>
 export default {
     props: {
-        contacts: { type: Array, default: [] },
+        books: { type: Array, default: [] },
         activeIndex: { type: Number, default: -1 },
     },
     emits: ["update:activeIndex"],

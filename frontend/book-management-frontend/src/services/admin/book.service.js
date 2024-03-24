@@ -1,8 +1,8 @@
-import createApiClient from "./api.service";
+import createApiAdmin from "../api.service";
 
-class ContactService {
-    constructor(baseUrl = "/admin/books") {
-        this.api = createApiClient(baseUrl);
+class BookService {
+    constructor(baseUrl = "/api/admin/books") {
+        this.api = createApiAdmin(baseUrl);
     }
     async getAll() {
         return (await this.api.get("/")).data;
@@ -23,4 +23,4 @@ class ContactService {
         return (await this.api.delete(`/${id}`)).data;
     }
 }
-export default new ContactService();
+export default new BookService();

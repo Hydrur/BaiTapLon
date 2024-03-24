@@ -9,8 +9,7 @@
 </template>
 
 <script>
-import AppHeader from "@/components/AppHeader.vue";
-
+import AppHeader from "@/components/admin/AppHeader.vue"
 export default {
   components: {
     AppHeader,
