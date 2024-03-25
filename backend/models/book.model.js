@@ -9,6 +9,7 @@ const bookSchema = new mongoose.Schema({
     quantity: Number,
     publishYear: String,
     author: String,
+    thumbnail: String,
     slug: {
         type: String,
         slug: "bookTitle",

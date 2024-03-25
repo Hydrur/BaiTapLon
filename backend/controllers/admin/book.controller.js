@@ -1,13 +1,18 @@
 const Book = require("../../models/book.model");
 const ApiError = require('../../helpers/api-error');
+const asyncHandler = require("express-async-handler");
+const fs = require('fs');
+const upload = require('../../middlewares/admin/upload');
+const path = require('path')
 
 
 const createBook = async (req, res) => {
   try {
     const book = await Book.create({
       ...req.body,
-      // image: req.file ? req.file.filename : null
+      thumbnail: req.file ? req.file.filename : null
     });
+    console.log(book)
 
     res.status(200).json({ message: 'Book added successfully', book });
   } catch (error) {

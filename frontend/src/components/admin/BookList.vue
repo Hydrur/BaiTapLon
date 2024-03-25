@@ -3,6 +3,7 @@
   <thead>
     <tr>
       <th>#</th>
+      <th>Ảnh sách</th>
       <th>Tên sách</th>
       <th>Giá</th>
       <th>Số lượng</th>
@@ -18,6 +19,9 @@
       @click="updateActiveIndex(index)"
     > 
       <td>{{ index }}</td>
+      <td>
+        <img :src="'http://localhost:3000/uploads/' + book.thumbnail" class="img-book" alt="Product Image" />
+      </td>
       <td>{{ book.bookTitle }}</td>
       <td>{{ book.price }}</td>
       <td>{{ book.quantity }}</td>
@@ -43,3 +47,10 @@ export default {
   },
 };
 </script>
+
+<style>
+.img-book {
+    height: 90px;
+    width: 90px;
+}
+</style>

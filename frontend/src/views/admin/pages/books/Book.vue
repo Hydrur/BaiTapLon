@@ -99,6 +99,7 @@ export default {
           quantity,
           publishYear,
           author,
+          thumbnail,
         } = book;
         return [
           id_publisher,
@@ -107,6 +108,7 @@ export default {
           quantity,
           publishYear,
           author,
+          thumbnail,
         ].join("");
       });
     },

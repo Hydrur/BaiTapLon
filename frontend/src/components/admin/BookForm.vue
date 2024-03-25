@@ -1,5 +1,5 @@
 <template>
-  <Form @submit="submitBook" :validation-schema="bookFormSchema">
+  <Form @submit="submitBook" :validation-schema="bookFormSchema" >
     <div class="form-group">
       <label for="bookTitle">Tên Sách:</label>
       <Field
@@ -50,6 +50,17 @@
       />
       <ErrorMessage name="author" class="error-feedback" />
     </div>
+    <div class="form-group">
+    <label for="thumbnail">Ảnh bìa sách:</label>
+    <input
+      class="input"
+      type="file"
+      id="thumbnail"
+      accept="image/jpg, image/png"
+      @change="handleFileUpload"
+    />
+    <ErrorMessage name="thumbnail" class="error-feedback" />
+  </div>
     <div class="form-group mt-3">
       <button class="btn btn-primary">Lưu</button>
       <button
@@ -88,13 +99,18 @@ export default {
     return {
       // Chúng ta sẽ không muốn hiệu chỉnh props, nên tạo biến cục bộ
       // bookLocal để liên kết với các input trên form
-      bookLocal: this.book,
+      bookLocal:this.book,
       bookFormSchema,
     };
   },
   methods: {
+    handleFileUpload(event) {
+      const file = event.target.files[0]; // Lấy tệp tin từ sự kiện
+      this.bookLocal.thumbnail =file.name; // Lưu trữ tệp tin vào bookLocal hoặc trường tương ứng
+    },
     submitBook() {
       this.$emit("submit:book", this.bookLocal);
+      // console.log(this.bookLocal)
     },
     deleteBook() {
       this.$emit("delete:book", this.bookLocal.id);

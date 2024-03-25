@@ -2,8 +2,8 @@ import axios from "axios";
 
 const commonConfig = {
     headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
+        "Content-Type": "multipart/form-data; boundary=<calculated when request is sent>",
+        Accept: "multipart/form-data; boundary=<calculated when request is sent>",
     },
 };
 export default (baseURL) => {

@@ -23,6 +23,7 @@ const port = process.env.PORT;
 app.use(cookieParser('KWJFKWEIFHW'));
 app.use(session({ cookie: { maxAge: 60000 }}));
 
+app.use(express.static('public'))
 // override
 app.use(methodOverride('_method'));
 app.use(cors());
