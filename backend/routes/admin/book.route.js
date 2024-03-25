@@ -12,7 +12,7 @@ const upload = multer({ storage: storage });
 router.post('/', upload.single('thumbnail'),controller.createBook)
 router.get('/', controller.getAll)
 router.get('/:id', controller.getOne)
-router.put('/:id', controller.updateOne)
+router.put('/:id',upload.single('thumbnail'), controller.updateOne)
 router.delete('/:id', controller.deleteOne)
 router.delete('/', controller.deleteAll)
 

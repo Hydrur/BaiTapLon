@@ -1,5 +1,4 @@
 <template>
-  <div class="add-product-page">
       <div class="container">
           <div class="add-new">Thêm đầu sách</div>
           <div class="form">
@@ -34,11 +33,10 @@
                       <input class="input" type="file" id="thumbnail" accept="image/*" @change="handleFileUpload" />
                   </div>
 
-                  <button type="submit" class="btn">Tạo</button>
+                  <button type="submit" class="btn btn-primary">Tạo</button>
               </form>
           </div>
       </div>
-  </div>
 </template>
 
 <script>
@@ -107,14 +105,6 @@ export default {
 </script>
 
 <style scoped>
-.add-product-page {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100vh;
-  background-color: var(--white);
-}
 
 .container {
   width: 80%;
@@ -148,21 +138,5 @@ export default {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
-}
-
-.btn {
-  margin-top: 20px;
-  padding: 10px 20px;
-  width: 30%;
-  background-color: var(--black);
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.btn:hover {
-  background-color: var(--black-hover);
-  color: var(--white)
 }
 </style>

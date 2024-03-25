@@ -4,7 +4,7 @@ const asyncHandler = require("express-async-handler");
 const fs = require('fs');
 const upload = require('../../middlewares/admin/upload');
 const path = require('path')
-
+const fsx = require('fs-extra');
 
 const createBook = async (req, res) => {
   try {
@@ -12,8 +12,6 @@ const createBook = async (req, res) => {
       ...req.body,
       thumbnail: req.file ? req.file.filename : null
     });
-    console.log(book)
-
     res.status(200).json({ message: 'Book added successfully', book });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -53,24 +51,25 @@ const updateOne = async (req, res) => {
       return res.status(404).json({ message: `Cannot find book with ID: ${bookId}` });
     }
 
+
     // Check if a new image file is uploaded
-    // if (req.file) {
-    //   // Remove the old image file
-    //   if (existingBook.image) {
-    //     const imagePath = path.join(__dirname, '..', 'uploads', existingBook.image);
-    //     fs.unlink(imagePath, (err) => {
-    //       if (err) {
-    //         console.error(`Error deleting old image file: ${err}`);
-    //       } else {
-    //         console.log(`Old image file deleted: ${existingBook.image}`);
-    //       }
-    //     });
-    //   }
-    // }
+    if (req.file) {
+      // Remove the old image file
+      if (existingBook.thumbnail) {
+        const imagePath = path.join(__dirname, '..', '..', 'public', 'uploads', existingBook.thumbnail);
+        fs.unlink(imagePath, (err) => {
+          if (err) {
+            console.error(`Error deleting old image file: ${err}`);
+          } else {
+            console.log(`Old image file deleted: ${existingBook.thumbnail}`);
+          }
+        });
+      }
+    }
 
     const data = {
       ...req.body,
-      // image: req.file ? req.file.filename : existingBook.image
+      thumbnail: req.file ? req.file.filename : existingBook.thumbnail
     };
     const book = await Book.findByIdAndUpdate(bookId, data, { new: true })
     if (!book) {
@@ -90,17 +89,17 @@ const deleteOne = async (req, res) => {
     if (!book) {
       res.status(404).json({ message: `Can not find book with ID: ${req.params.id}` })
     }
-    // const imagePath = path.join(__dirname, '..', 'uploads', book.image);
+    const imagePath = path.join(__dirname, '..', '..', 'public', 'uploads', book.thumbnail);
 
-    // if (book.image) {
-    //   fs.unlink(imagePath, (err) => {
-    //     if (err) {
-    //       console.error(`Error deleting image file: ${err}`);
-    //     } else {
-    //       console.log(`Image file deleted: ${product.image}`);
-    //     }
-    //   });
-    // }
+    if (book.thumbnail) {
+      fs.unlink(imagePath, (err) => {
+        if (err) {
+          console.error(`Error deleting image file: ${err}`);
+        } else {
+          console.log(`Image file deleted: ${book.thumbnail}`);
+        }
+      });
+    }
     res.status(200).json({ message: `Book with ID: ${req.params.id} was deleted` });
   } catch (error) {
     res.status(500);
@@ -111,6 +110,12 @@ const deleteOne = async (req, res) => {
 const deleteAll = async (req, res) => {
   try {
     const result = await Book.deleteMany({});
+    // Đường dẫn đến thư mục "uploads"
+    const uploadDir = path.join(__dirname, '..', '..', 'public', 'uploads');
+
+    // Xóa thư mục "uploads" đệ quy
+    await fsx.emptyDir(uploadDir);
+
     res.status(200).json({ message: `Deleted ${result.deletedCount} books.` });
   } catch (error) {
     res.status(500);
