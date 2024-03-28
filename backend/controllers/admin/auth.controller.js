@@ -20,6 +20,11 @@ module.exports.loginPost = async (req, res, next) => {
       return;
     }
 
+    if (enteredPassword != user.password ) {
+      res.json('wrong info');
+      return;
+    }
+
     res.cookie("token", user.password);
     res.json('success');
 

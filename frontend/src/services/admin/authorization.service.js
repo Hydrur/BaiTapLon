@@ -6,25 +6,14 @@ class AuthorizationServiceAdmin {
     this.api = createApiAdmin(baseUrl);
   }
 
-  // async submitLogin(data) {
-  //   console.log("data",data)
-  //   return (await this.api.post("/login", data)).data;
-  // }
-
-  async submitLogin(credentials){
+  async submitLogin(credentials) {
     try {
-        const response = await this.api.post('/login', credentials);
-        const { token, user } = response.data;
-
-        // Store token and user data in local storage
-        // localStorage.setItem('token', token);
-        // localStorage.setItem('user', JSON.stringify(user));
-
-        // return user;
+      const response = await this.api.post('/login', credentials);
+      return response;
     } catch (error) {
-        throw error;
+      throw error;
     }
-};
+  };
 
 
   async logOut(data) {

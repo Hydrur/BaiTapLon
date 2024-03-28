@@ -1,75 +1,78 @@
 <template>
-  <div class="container">
-    <div class="add-new">Hiệu chỉnh đầu sách</div>
-    <div class="form">
-      <form @submit.prevent="updateBook()">
-        <div class="form-item">
-          <label class="label" for="bookTitle">Tên sách:</label><br />
-          <input
-            class="input"
-            type="text"
-            id="bookTitle"
-            v-model="formData.bookTitle"
-          />
-        </div>
-
-        <div class="form-item">
-          <label class="label" for="price">Giá:</label><br />
-          <input
-            class="input"
-            type="number"
-            id="price"
-            v-model="formData.price"
-          />
-        </div>
-
-        <div class="form-item">
-          <label class="label" for="quantity">Số lượng:</label><br />
-          <input
-            class="input"
-            type="number"
-            id="quantity"
-            v-model="formData.quantity"
-          />
-        </div>
-
-        <div class="form-item">
-          <label class="label" for="publishYear">Năm phát hành:</label><br />
-          <input
-            class="input"
-            type="text"
-            id="publishYear"
-            v-model="formData.publishYear"
-          />
-        </div>
-
-        <div class="form-item">
-          <label class="label" for="author">Tác giả:</label><br />
-          <input
-            class="input"
-            type="text"
-            id="author"
-            v-model="formData.author"
-          />
-        </div>
-
-        <div class="form-item">
-          <label class="label" for="thumbnail">Ảnh sách</label><br />
-          <input
-            class="input"
-            type="file"
-            id="thumbnail"
-            accept="image/*"
-            @change="handleFileUpload"
-          />
-          <div v-if="formData.thumbnail">
-            {{ getFileName(formData.thumbnail) }}
-            <div v-if="imageChanged">{{ info }}</div>
+  <div>
+    <AppHeader />
+    <div class="container mt-3">
+      <div class="add-new">Hiệu chỉnh đầu sách</div>
+      <div class="form">
+        <form @submit.prevent="updateBook()">
+          <div class="form-item">
+            <label class="label" for="bookTitle">Tên sách:</label><br />
+            <input
+              class="input"
+              type="text"
+              id="bookTitle"
+              v-model="formData.bookTitle"
+            />
           </div>
-        </div>
 
-        <button type="submit" class="btn btn-primary">Update</button>
-      </form>
+          <div class="form-item">
+            <label class="label" for="price">Giá:</label><br />
+            <input
+              class="input"
+              type="number"
+              id="price"
+              v-model="formData.price"
+            />
+          </div>
+
+          <div class="form-item">
+            <label class="label" for="quantity">Số lượng:</label><br />
+            <input
+              class="input"
+              type="number"
+              id="quantity"
+              v-model="formData.quantity"
+            />
+          </div>
+
+          <div class="form-item">
+            <label class="label" for="publishYear">Năm phát hành:</label><br />
+            <input
+              class="input"
+              type="text"
+              id="publishYear"
+              v-model="formData.publishYear"
+            />
+          </div>
+
+          <div class="form-item">
+            <label class="label" for="author">Tác giả:</label><br />
+            <input
+              class="input"
+              type="text"
+              id="author"
+              v-model="formData.author"
+            />
+          </div>
+
+          <div class="form-item">
+            <label class="label" for="thumbnail">Ảnh sách</label><br />
+            <input
+              class="input"
+              type="file"
+              id="thumbnail"
+              accept="image/*"
+              @change="handleFileUpload"
+            />
+            <div v-if="formData.thumbnail">
+              {{ getFileName(formData.thumbnail) }}
+              <div v-if="imageChanged">{{ info }}</div>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Update</button>
+        </form>
+      </div>
     </div>
   </div>
 </template>

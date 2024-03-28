@@ -1,59 +1,85 @@
 <!-- LoginForm.vue -->
 <template>
   <div class="login_page">
-      <div class="container">
-          <div class="login">Login</div>
-          <form @submit.prevent="login" class="form">
-              <div class="form-item">
-                  <label for="email" class="label">Username</label><br>
-                  <input v-model="formData.email" type="text" id="email" class="input" />
-              </div>
-              <div class="form-item">
-                  <label for="password" class="label">Password</label><br>
-                  <input v-model="formData.password" type="password" id="password" class="input" />
-              </div>
-              <button type="submit" class="btn">Login</button>
-              <div class="register">
-                  You don't have account?
-                  <router-link :to="{ name: 'register' }">Register</router-link>
-              </div>
-          </form>
-      </div>
+    <div class="container">
+      <div class="login">Login</div>
+      <form @submit.prevent="login" class="form">
+        <div class="form-item">
+          <label for="email" class="label">Username</label><br />
+          <input
+            v-model="formData.email"
+            type="text"
+            id="email"
+            class="input"
+          />
+        </div>
+        <div class="form-item">
+          <label for="password" class="label">Password</label><br />
+          <input
+            v-model="formData.password"
+            type="password"
+            id="password"
+            class="input"
+          />
+        </div>
+        <button type="submit" class="btn">Login</button>
+        <div class="register">
+          You don't have account?
+          <router-link :to="{ name: 'register' }">Register</router-link>
+        </div>
+      </form>
+    </div>
   </div>
 </template>
 
 <script>
 import AuthorizationServiceAdmin from "../../../../services/admin/authorization.service";
-import { toast } from 'vue3-toastify';
-import 'vue3-toastify/dist/index.css';
+import { toast } from "vue3-toastify";
+import "vue3-toastify/dist/index.css";
 export default {
   data() {
-      return {
-          formData: {
-              email: '',
-              password: '',
-          },
-      };
+    return {
+      formData: {
+        email: "",
+        password: "",
+      },
+    };
   },
   methods: {
-      async login() {
-          try {
-              const response = await AuthorizationServiceAdmin.submitLogin(this.formData)
-              console.log(response)
-              toast.success('Login successfully', {
-                  autoClose: 800,
-              })
-              setTimeout(() => {
-                  this.$router.push({name: 'book'})
-              }, 1500);
-          } catch (error) {
-              console.log(error)
-              toast.error('Username or password is incorrect', {
-                  autoClose: 800,
-              })
-          }
-
-      },
+    async login() {
+      try {
+        const response = await AuthorizationServiceAdmin.submitLogin(
+          this.formData
+        );
+        switch (response.data) {
+          case "wrong info":
+            // Đăng nhập không thành công
+            toast.error(
+              "Đăng nhập không thành công. Vui lòng kiểm tra thông tin đăng nhập và thử lại.",
+              {
+                autoClose: 800,
+              }
+            );
+            break;
+          case "success":
+            // Đăng nhập thành công
+            toast.success("Đăng nhập thành công", {
+              autoClose: 800,
+            });
+            setTimeout(() => {
+              this.$router.push({ name: "book" });
+            }, 1500);
+            break;
+          default:
+            break;
+        }
+      } catch (error) {
+        console.log(error);
+        toast.error("Username or password is incorrect", {
+          autoClose: 800,
+        });
+      }
+    },
   },
 };
 </script>
@@ -105,7 +131,7 @@ export default {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  background-color: transparent; 
+  background-color: transparent;
 }
 
 .btn {

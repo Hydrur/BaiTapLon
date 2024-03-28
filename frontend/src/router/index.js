@@ -1,5 +1,7 @@
 import { createWebHistory, createRouter } from "vue-router";
 
+import AppHeaderAdmin from '../components/admin/AppHeader.vue'
+
 const requireAdminAuth = (to, from, next) => {
   try {
     const token = document.cookie.split('; ').find(row => row.startsWith('token')).split('=')[1];
