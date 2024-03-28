@@ -7,7 +7,7 @@ module.exports.authRequire = async (req, res, next) => {
   }
 
   const user = await Account.findOne({
-    password: req.cookies.token
+    token: req.cookies.token
   })
 
   if (!user) {

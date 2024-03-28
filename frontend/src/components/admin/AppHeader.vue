@@ -1,28 +1,59 @@
 <template>
   <nav class="navbar navbar-expand navbar-dark bg-dark">
-    <a href="/admin/books" class="navbar-brand">Ứng dụng Quản lý Sách</a>
-    <div class="mr-auto navbar-nav">
-      <li class="nav-item">
-        <router-link :to="{ name: 'book' }" class="nav-link">
-          Sách
-          <i class="fa-solid fa-book"></i>
-        </router-link>
-      </li>
+    <div class="navbar-brand-container">
+      <a href="/admin/books" class="navbar-brand">Ứng dụng Quản lý Sách</a>
+      <div class="mr-auto navbar-nav">
+        <li class="nav-item">
+          <router-link :to="{ name: 'book' }" class="nav-link">
+            Sách
+            <i class="fa-solid fa-book"></i>
+          </router-link>
+        </li>
+      </div>
+    </div>
+    <div class="logout-container">
+      <button class="btn btn-danger button-logout" @click="logout">
+        Đăng Xuất
+      </button>
     </div>
   </nav>
 </template>
 
 <script>
+import Authorization from "@/services/admin/authorization.service.js";
 export default {
   computed: {},
   name: "app-header-admin",
+  methods: {
+    logout() {
+      // Xử lý đăng xuất ở đây
+      try {
+        const respone = Authorization.logOut();
+        this.$router.push({ name: "login" });
+      } catch (error) {
+        console.log(error);
+      }
+      
+      
+    },
+  },
 };
 </script>
 
 <style scoped>
+.navbar-brand-container {
+  display: flex;
+  align-items: center;
+}
+
+.logout-container {
+  margin-left: auto;
+  margin-right: 20px;
+}
+
 .navbar-brand {
   margin-right: 20px; /* Khoảng cách từ biểu tượng sách đến nội dung bên phải */
-  margin-left: 5%;
+  margin-left: 10%;
 }
 
 .nav-link {
@@ -33,5 +64,9 @@ export default {
 
 .fa-book {
   margin-left: 5px; /* Khoảng cách giữa chữ "Sách" và biểu tượng sách */
+}
+
+.btn-danger {
+  margin-left: 15px;
 }
 </style>

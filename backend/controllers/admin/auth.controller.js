@@ -25,7 +25,7 @@ module.exports.loginPost = async (req, res, next) => {
       return;
     }
 
-    res.cookie("token", user.password);
+    res.cookie("token", user.token);
     res.json('success');
 
   } catch (error) {
