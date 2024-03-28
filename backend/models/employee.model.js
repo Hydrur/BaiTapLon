@@ -4,7 +4,7 @@ mongoose.plugin(slug);
 
 const employeeSchema = new mongoose.Schema({
     fullName:String, 
-    userName: String, 
+    email: String, 
     password: String, 
     position: String,
     address: String,

@@ -8,6 +8,8 @@ const bookSchema = new mongoose.Schema({
     price: Number,
     quantity: Number,
     publishYear: String,
+    publisherName: String,
+    publisherAddress: String,
     author: String,
     thumbnail: String,
     slug: {
