@@ -7,7 +7,6 @@
       <th>Tên sách</th>
       <th>Giá</th>
       <th>Số lượng</th>
-      <th>Năm phát hành</th>
       <th>Tác giả</th>
     </tr>
   </thead>
@@ -25,7 +24,6 @@
       <td>{{ book.bookTitle }}</td>
       <td>{{ book.price }}</td>
       <td>{{ book.quantity }}</td>
-      <td>{{ book.publishYear }}</td>
       <td>{{ book.author }}</td>
     </tr>
   </tbody>

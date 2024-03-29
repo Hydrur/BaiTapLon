@@ -1,7 +1,7 @@
 <template>
   <div>
     <AppHeader />
-    <div class="container mt-3">
+    <div class="container mt-3 mb-3">
       <div class="add-new">Thêm đầu sách</div>
       <div class="form">
         <form
@@ -41,7 +41,28 @@
           </div>
 
           <div class="form-item">
-            <label class="label" for="publishYear">Năm phát hành:</label><br />
+            <label class="label" for="author">Tác giả:</label><br />
+            <input
+              class="input"
+              type="text"
+              id="author"
+              v-model="formData.author"
+            />
+          </div>
+
+          <div class="form-item">
+            <label class="label" for="publisherName">Tên nhà xuất bản:</label
+            ><br />
+            <input
+              class="input"
+              type="text"
+              id="publisherName"
+              v-model="formData.publisherName"
+            />
+          </div>
+
+          <div class="form-item">
+            <label class="label" for="publishYear">Năm xuất bản:</label><br />
             <input
               class="input"
               type="text"
@@ -51,12 +72,13 @@
           </div>
 
           <div class="form-item">
-            <label class="label" for="author">Tác giả:</label><br />
+            <label class="label" for="publisherAddress">Địa chỉ NXB:</label
+            ><br />
             <input
               class="input"
               type="text"
-              id="author"
-              v-model="formData.author"
+              id="publisherAddress"
+              v-model="formData.publisherAddress"
             />
           </div>
 
@@ -112,9 +134,7 @@ export default {
           !this.formData.bookTitle ||
           !this.formData.price ||
           !this.formData.quantity ||
-          !this.formData.publishYear ||
-          !this.formData.author ||
-          !this.formData.thumbnail
+          !this.formData.author 
         ) {
           toast.error("Please fill in all required fields.", {
             autoClose: 3000,
@@ -123,11 +143,12 @@ export default {
         }
 
         const formData = new FormData();
-        formData.append("id_publisher", this.formData.id_publisher);
         formData.append("bookTitle", this.formData.bookTitle);
         formData.append("price", this.formData.price);
         formData.append("quantity", this.formData.quantity);
         formData.append("publishYear", this.formData.publishYear); // Append the image file
+        formData.append("publisherName", this.formData.publisherName);
+        formData.append("publisherAddress", this.formData.publisherAddress);
         formData.append("author", this.formData.author);
         formData.append("thumbnail", this.formData.thumbnail);
         const response = await BookService.create(this.formData);
@@ -153,7 +174,7 @@ export default {
 .container {
   width: 80%;
   width: 500px;
-  height: 700px;
+  height: 850px;
   text-align: center;
   padding: 20px;
   background-color: #f5f5f5;

@@ -36,7 +36,27 @@
           </div>
 
           <div class="form-item">
-            <label class="label" for="publishYear">Năm phát hành:</label><br />
+            <label class="label" for="author">Tác giả:</label><br />
+            <input
+              class="input"
+              type="text"
+              id="author"
+              v-model="formData.author"
+            />
+          </div>
+
+          <div class="form-item">
+            <label class="label" for="publisherName">Tên nhà xuất bản:</label><br />
+            <input
+              class="input"
+              type="text"
+              id="publisherName"
+              v-model="formData.publisherName"
+            />
+          </div>
+
+          <div class="form-item">
+            <label class="label" for="publishYear">Năm xuất bản:</label><br />
             <input
               class="input"
               type="text"
@@ -46,14 +66,15 @@
           </div>
 
           <div class="form-item">
-            <label class="label" for="author">Tác giả:</label><br />
+            <label class="label" for="publisherAddress">Địa chỉ NXB:</label><br />
             <input
               class="input"
               type="text"
-              id="author"
-              v-model="formData.author"
+              id="publisherAddress"
+              v-model="formData.publisherAddress"
             />
           </div>
+        
 
           <div class="form-item">
             <label class="label" for="thumbnail">Ảnh sách</label><br />
@@ -105,12 +126,13 @@ export default {
       try {
         const book = await BookService.get(bookId);
         if (book) {
-          this.formData.id_publisher = book.id_publisher;
           this.formData.bookTitle = book.bookTitle;
           this.formData.price = book.price;
           this.formData.quantity = book.quantity;
-          this.formData.publishYear = book.publishYear;
           this.formData.author = book.author;
+          this.formData.publishYear = book.publishYear;
+          this.formData.publisherName = book.publisherName;
+          this.formData.publisherAddress = book.publisherAddress;
           this.formData.thumbnail = book.thumbnail;
         } else {
           console.log("Book not found");
@@ -139,9 +161,7 @@ export default {
           !this.formData.bookTitle ||
           !this.formData.price ||
           !this.formData.quantity ||
-          !this.formData.publishYear ||
-          !this.formData.author ||
-          !this.formData.thumbnail
+          !this.formData.author 
         ) {
           toast.error("Please fill in all required fields.", {
             autoClose: 3000,
@@ -150,11 +170,12 @@ export default {
         }
 
         const formData = new FormData();
-        formData.append("id_publisher", this.formData.id_publisher);
         formData.append("bookTitle", this.formData.bookTitle);
         formData.append("price", this.formData.price);
         formData.append("quantity", this.formData.quantity);
         formData.append("publishYear", this.formData.publishYear); // Append the image file
+        formData.append("publisherName", this.formData.publisherName);
+        formData.append("publisherAddress", this.formData.publisherAddress);
         formData.append("author", this.formData.author);
         formData.append("thumbnail", this.formData.thumbnail);
         const response = await BookService.update(
@@ -176,7 +197,7 @@ export default {
 .container {
   width: 80%;
   width: 60%;
-  height: 700px;
+  height: 850px;
   text-align: center;
   /* margin-top: 10px; */
   background-color: #f5f5f5;

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <hr>
     <div class="p-1">
       <strong>Tên sách:</strong>
       {{ book.bookTitle }}
@@ -13,12 +14,21 @@
       {{ book.quantity }}
     </div>
     <div class="p-1">
-      <strong>Năm phát hành:</strong>
+      <strong>Tác giả:</strong>
+      {{ book.author }}
+    </div>
+    <hr>
+    <div class="p-1">
+      <strong>Tên nhà xuất bản:</strong>
+      {{ book.publisherName }}
+    </div>
+    <div class="p-1">
+      <strong>Năm xuất bản:</strong>
       {{ book.publishYear }}
     </div>
     <div class="p-1">
-      <strong>Tác giả:</strong>
-      {{ book.author }}
+      <strong>Địa chỉ NXB:</strong>
+      {{ book.publisherAddress }}
     </div>
   </div>
 </template>

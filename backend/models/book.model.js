@@ -3,7 +3,6 @@ const slug = require('mongoose-slug-updater');
 mongoose.plugin(slug);
 
 const bookSchema = new mongoose.Schema({
-    id_publisher: String,
     bookTitle: String,
     price: Number,
     quantity: Number,
