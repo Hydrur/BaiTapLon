@@ -1,4 +1,4 @@
-import createApiAdmin from "../api.service";
+import createApiAdmin from "./api.service";
 
 class BookService {
     constructor(baseUrl = "/api/admin/books") {

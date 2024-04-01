@@ -1,7 +1,7 @@
-const homeRoutes = require("./home.route");
+const bookRoutes = require("./book.route");
 
 module.exports = (app) => {  
   
-  app.use("/", homeRoutes);
+  app.use("/books", bookRoutes);
 
 }

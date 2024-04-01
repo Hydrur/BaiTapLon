@@ -1,6 +1,22 @@
-import { createWebHistory, createRouter } from "vue-router";
+// // index.js
+// import { createRouter, createWebHistory } from 'vue-router'
+// import clientRoutes from './client.route'
+// import adminRoutes from './admin.route'
 
-import AppHeaderAdmin from '../components/admin/AppHeader.vue'
+// const routes = [
+//   ...clientRoutes,
+//   ...adminRoutes,
+// ]
+
+// const router = createRouter({
+//   history: createWebHistory(import.meta.env.BASE_URL),
+//   routes
+// })
+
+// export default router
+
+
+import { createRouter, createWebHistory } from 'vue-router'
 
 const requireAdminAuth = (to, from, next) => {
   try {
@@ -14,6 +30,7 @@ const requireAdminAuth = (to, from, next) => {
     next('/admin/auth/login');
   }
 };
+
 
 const routes = [
   {
@@ -36,16 +53,16 @@ const routes = [
     beforeEnter: requireAdminAuth,
     props: true
   },
-  {
-    path: "/admin/*", // Sửa lại định tuyến này để bắt đầu bằng "/"
-    name: "notfound",
-    component: () => import("@/views/admin/pages/books/NotFound.vue"),
-  },
-  {
-    path: "/:catchAll(.*)", // Bắt tất cả các đường dẫn không hợp lệ
-    name: "notfound",
-    component: () => import("@/views/admin/pages/books/NotFound.vue"),
-  },
+//   {
+//     path: "/admin/*", // Sửa lại định tuyến này để bắt đầu bằng "/"
+//     name: "notfound",
+//     component: () => import("@/views/admin/pages/books/NotFound.vue"),
+//   },
+  // {
+  //   path: "/:catchAll(.*)", // Bắt tất cả các đường dẫn không hợp lệ
+  //   name: "notfound",
+  //   component: () => import("@/views/admin/pages/books/NotFound.vue"),
+  // },
   {
     path: "/admin/auth/register",
     name: "register",
@@ -58,15 +75,20 @@ const routes = [
     component: () => import("@/views/admin/pages/login/Login.vue"),
     props: true
   },
-];
+
+
+
+
+  {
+    path: "/books",
+    name: "book-client",
+    component: () => import("@/views/client/pages/books/ClientBook.vue"),
+},
+]
 
 const router = createRouter({
-  history: createWebHistory(),
-  routes,
-});
+  history: createWebHistory(import.meta.env.BASE_URL),
+  routes
+})
 
-
-export default router;
-
-
-
+export default router

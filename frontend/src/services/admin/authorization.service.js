@@ -1,4 +1,4 @@
-import createApiAdmin from "../api.auth.service";
+import createApiAdmin from "./api.auth.service";
 
 class AuthorizationServiceAdmin {
 
