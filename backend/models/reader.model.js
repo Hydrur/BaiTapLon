@@ -4,8 +4,9 @@ mongoose.plugin(slug);
 
 const readerSchema = new mongoose.Schema({
     fullName: String, 
-    dateOfBirth: String,
-    gender: Number,
+    email: String,
+    password: String,
+    token: String,
     address: String,
     phone: String,
     deleted: {

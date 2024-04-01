@@ -25,15 +25,15 @@
         <button type="submit" class="btn btn-primary">Đăng nhập</button>
         <div class="register">
           Bạn chưa có tài khoản?
-          <router-link :to="{ name: 'register' }">Đăng ký</router-link>
+          <router-link :to="{ name: 'register-client' }">Đăng ký</router-link>
         </div>
       </form>
     </div>
   </div>
 </template>
-
-<script>
-import AuthorizationServiceAdmin from "../../../../services/admin/authorization.service";
+  
+  <script>
+import AuthorizationServiceClient from "../../../../services/client/authorization.service";
 import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
 export default {
@@ -48,7 +48,7 @@ export default {
   methods: {
     async login() {
       try {
-        const response = await AuthorizationServiceAdmin.submitLogin(
+        const response = await AuthorizationServiceClient.submitLogin(
           this.formData
         );
         switch (response.data) {
@@ -67,7 +67,7 @@ export default {
               autoClose: 800,
             });
             setTimeout(() => {
-              this.$router.push({ name: "book" });
+              this.$router.push({ name: "book-client" });
             }, 1500);
             break;
           default:
@@ -83,8 +83,8 @@ export default {
   },
 };
 </script>
-
-<style scoped>
+  
+  <style scoped>
 .login_page {
   display: flex;
   justify-content: center;
@@ -148,3 +148,4 @@ export default {
   text-decoration: underline;
 }
 </style>
+  

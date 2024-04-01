@@ -1,8 +1,8 @@
-import createApiAdmin from "./api.service";
+import createApiClient from "./api.service";
 
 class BookService {
     constructor(baseUrl = "/api/books") {
-        this.api = createApiAdmin(baseUrl);
+        this.api = createApiClient(baseUrl);
     }
     async getAll() {
         return (await this.api.get("/")).data;

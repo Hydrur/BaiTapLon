@@ -1,11 +1,38 @@
 
-// const clientRoutes = [
-//     {
-//         path: "/books",
-//         name: "book-client",
-//         component: () => import("@/views/client/pages/books/Book.vue"),
-//     },
-// ];
+const requireAdminAuth = (to, from, next) => {
+    try {
+      const token = document.cookie.split('; ').find(row => row.startsWith('token')).split('=')[1];
+      if (token) {
+        next(); 
+      } else {
+        next('/auth/login');
+      }
+    } catch (error) {
+      next('/auth/login');
+    }
+  };
 
-// export default clientRoutes;
+
+const clientRoutes = [
+    {
+        path: "/books",
+        name: "book-client",
+        component: () => import("@/views/client/pages/books/ClientBook.vue"),
+        beforeEnter: requireAdminAuth
+    },
+
+    {
+        path: "/reader/register",
+        name: "register-client",
+        component: () => import("@/views/client/pages/register/ClientRegister.vue"),
+    },
+
+    {
+        path: "/auth/login",
+        name: "login-client",
+        component: () => import("@/views/client/pages/login/ClientLogin.vue"),
+    },
+];
+
+export default clientRoutes;
 
