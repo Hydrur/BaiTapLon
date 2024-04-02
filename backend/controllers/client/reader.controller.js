@@ -56,35 +56,45 @@ const getUser = asyncHandler(async (req, res) => {
     try {
         const tokenUser = req.headers.authorization.split(" ")[1];
         const reader = await Reader.findOne({
-            token:tokenUser
+            token: tokenUser
         })
-        res.status(200).json({ message: "Send reader successfully." , reader});
+        res.status(200).json({ message: "Send reader successfully.", reader });
     } catch (error) {
         res.status(500).json({ massage: `Error! ${error}` });
     }
 })
 
-// const updateFavorite = asyncHandler(async (req, res) => {
-//     try {
-//         // Assuming you have a method in your UserService to update favorites
-//         const response = await Users.findByIdAndUpdate(req.params.id, req.body.favorite);
-//         res.status(200).json({ message: 'Favorites updated successfully', response});
-//     } catch (error) {
-//         console.error('Error updating favorites:', error);
-//         res.status(500).json({ error: 'Internal Server Error' });
-//     }
-// })
-
-const updateCart = asyncHandler(async (req, res) => {
+const deleteBook = asyncHandler(async (req, res) => {
     try {
-        // Assuming you have a method in your UserService to update favorites
-        const response = await Users.findByIdAndUpdate(req.params.id, req.body.cart);
-        res.status(200).json({ message: 'Cart updated successfully', response });
+        const tokenUser = req.cookies.tokenUser;
+        const id = req.params.id;
+
+        if (tokenUser) {
+            const reader = await Reader.findOne({
+                token: tokenUser,
+            })
+
+            if (reader) {
+                // Lọc ra các sách trong borrow mà id_book không bằng id cần xóa
+                reader.borrow = reader.borrow.filter(book => book.id_book !== id);
+
+                // Lưu thay đổi vào CSDL
+                await reader.save();
+
+                res.status(200).json({ message: "Book deleted successfully." });
+            } else {
+                res.status(404).json({ message: "Reader not found." });
+            }
+
+        } else {
+            res.status(401).json({ message: "Unauthorized." });
+        }
+
+        // res.status(200).json({ message: "Send reader successfully." , reader});
     } catch (error) {
-        console.error('Error updating cart:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
+        res.status(500).json({ massage: `Error! ${error}` });
     }
-});
+})
 
 const deleteProductFromCart = asyncHandler(async (req, res) => {
     try {
@@ -115,6 +125,6 @@ module.exports = {
     create,
     addBook,
     getUser,
-    updateCart,
+    deleteBook,
     deleteProductFromCart,
 }

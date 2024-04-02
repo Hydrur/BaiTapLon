@@ -32,6 +32,16 @@ class ReaderService {
         }
     }
 
+    async deleteBook(id) {
+        try {
+            const response = await this.apiClient.delete(`/deletebook/${id}`);
+            return response;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+
     // async updateCart(userId, cart) {
     //     try {
     //         const response = await this.apiClient.put(`/${userId}`, { cart });

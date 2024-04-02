@@ -12,6 +12,7 @@
             <th>Tên sách</th>
             <th>Số lượng</th>
             <th>Trạng thái</th>
+            <th>Hành động</th>
           </tr>
         </thead>
         <tbody>
@@ -30,6 +31,15 @@
             <td>{{ getBookTitle(borrowedBook.id_book) }}</td>
             <td>{{ borrowedBook.quantity }}</td>
             <td class="text-primary">{{ borrowedBook.status }}</td>
+            <td>
+              <button
+                v-if="canDelete(borrowedBook.status)"
+                class="btn btn-danger"
+                @click="deleteBook(borrowedBook.id_book)"
+              >
+                Xóa
+              </button>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -94,6 +104,16 @@ export default {
     getBookImage(bookId) {
       const book = this.books.find((book) => book._id === bookId);
       return book ? "http://localhost:3000/uploads/" + book.thumbnail : ""; // Assuming `imageUrl` is the field that stores the image URL in your book object
+    },
+    canDelete(status) {
+      return status === "processing" || status === "refused";
+    },
+    async deleteBook(id) {
+      const respone = await ReaderService.deleteBook(id);
+      this.retrieveBooks();
+      this.retrieveReader();
+      // Thực hiện xóa quyển sách đã mượn ở vị trí index trong mảng reader.borrow
+      // Gọi API hoặc thực hiện các thao tác cần thiết để xóa quyển sách đã mượn
     },
   },
   mounted() {
