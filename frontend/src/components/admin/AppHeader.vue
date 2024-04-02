@@ -9,6 +9,12 @@
             <i class="fa-solid fa-book"></i>
           </router-link>
         </li>
+        <li class="nav-item" style="width:200px;">
+          <router-link :to="{ name: 'book.borrow' }" class="nav-link">
+            Quản lý đơn mượn
+            <i class="fa-solid fa-book"></i>
+          </router-link>
+        </li>
       </div>
     </div>
     <div class="logout-container">

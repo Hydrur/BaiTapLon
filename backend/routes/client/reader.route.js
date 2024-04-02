@@ -12,8 +12,10 @@ router.get('/user', controller.getUser)
 
 router.delete('/deletebook/:id', controller.deleteBook)
 
-// router.put('/:id', users.updateFavorite)
-// router.put('/:id', users.updateCart)
-// router.put('/:id', users.deleteProductFromCart)
+router.get('/retrieveallreaders', controller.retrieveAllReaders)
+
+
+router.post('/changestatus/:readerId/:bookId', controller.changeStatus)
+
 
 module.exports = router;

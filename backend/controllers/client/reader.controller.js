@@ -96,35 +96,53 @@ const deleteBook = asyncHandler(async (req, res) => {
     }
 })
 
-const deleteProductFromCart = asyncHandler(async (req, res) => {
+const retrieveAllReaders = asyncHandler(async (req, res) => {
     try {
-        const userId = req.params.id;
-        const productIdToDelete = req.params.productId;
-
-        const user = await Users.findById(userId);
-
-        if (!user) {
-            return res.status(404).json({ error: 'User not found' });
-        }
-
-        // Filter out the product to be deleted from the user's cart
-        user.cart = user.cart.filter((item) => item.productId.toString() !== productIdToDelete);
-
-        // Update the user document in the database
-        const response = await Users.findByIdAndUpdate(userId, { cart: user.cart });
-
-        res.status(200).json({ message: 'Product deleted from cart successfully', response });
+        const readers = await Reader.find({});
+        res.status(200).json(readers);
     } catch (error) {
-        console.error('Error deleting product from cart:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
+        res.status(500);
+        throw new Error(error.message)
     }
-});
+})
 
+const changeStatus = asyncHandler(async (req, res) => {
+    try {
+        // Lấy thông tin từ request
+        const { readerId, bookId } = req.params;
+        const { status } = req.body;
+
+        // Kiểm tra xem reader và book có tồn tại không
+        const reader = await Reader.findById(readerId);
+        if (!reader) {
+            res.status(404).json({ message: "Reader not found." });
+            return;
+        }
+        const bookIndex = reader.borrow.findIndex(book => book.id_book === bookId);
+        if (bookIndex === -1) {
+            res.status(404).json({ message: "Book not found." });
+            return;
+        }
+        console.log("bookIndex", bookIndex)
+        // Thay đổi trạng thái sách
+        reader.borrow[bookIndex].status = status;
+
+        // // Lưu thay đổi vào CSDL
+        await reader.save();
+
+        // Trả về thông báo thành công
+        res.status(200).json({ message: "Status updated successfully." });
+    } catch (error) {
+        res.status(500);
+        throw new Error(error.message)
+    }
+})
 
 module.exports = {
     create,
     addBook,
     getUser,
     deleteBook,
-    deleteProductFromCart,
+    retrieveAllReaders,
+    changeStatus,
 }

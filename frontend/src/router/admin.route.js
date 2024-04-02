@@ -33,6 +33,14 @@ const adminRoutes = [
     beforeEnter: requireAdminAuth,
     props: true
   },
+
+  {
+    path: "/admin/books/borrow",
+    name: "book.borrow",
+    component: () => import("@/views/admin/pages/books/Borrow.vue"),
+    beforeEnter: requireAdminAuth,
+    props: true
+  },
 //   {
 //     path: "/admin/*", // Sửa lại định tuyến này để bắt đầu bằng "/"
 //     name: "notfound",
