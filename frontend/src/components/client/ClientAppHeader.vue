@@ -9,7 +9,7 @@
             <i class="fa-solid fa-book"></i>
           </router-link>
         </li>
-        <li class="nav-item" style="width:150px;">
+        <li class="nav-item" style="width: 150px">
           <router-link :to="{ name: 'borrow-client' }" class="nav-link">
             Đơn mượn
             <i class="fa-solid fa-book"></i>
@@ -19,6 +19,11 @@
     </div>
     <div class="login-logout-register-container">
       <div v-if="isLoggedIn">
+        <button class="btn btn-primary">
+          <router-link :to="{ name: 'infor-client' }" class="nav-link">
+            Thông tin cá nhân
+          </router-link>
+        </button>
         <button class="btn btn-danger button-logout" @click="logout">
           Đăng Xuất
         </button>
@@ -56,7 +61,6 @@ export default {
       } else {
         this.isLoggedIn = false;
       }
-
     },
     getTokenFromCookie() {
       // Phương thức để lấy token từ cookie

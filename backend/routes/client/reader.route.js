@@ -17,5 +17,7 @@ router.get('/retrieveallreaders', controller.retrieveAllReaders)
 
 router.post('/changestatus/:readerId/:bookId', controller.changeStatus)
 
+router.get('/infor', controller.getInfor)
+
 
 module.exports = router;

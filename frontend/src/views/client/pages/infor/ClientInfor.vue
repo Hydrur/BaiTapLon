@@ -1,6 +1,6 @@
 <template>
   <div>
-    <AppHeader />
+    <ClientAppHeader />
 
     <div class="infor-page">
       <div class="infor-container">
@@ -49,15 +49,15 @@
     </div>
   </div>
 </template>
-  
-  <script>
+    
+    <script>
 import "vue3-toastify/dist/index.css";
-import AppHeader from "@/components/admin/AppHeader.vue";
-import EmployeeService from "@/services/admin/employee.service";
+import ClientAppHeader from "@/components/client/ClientAppHeader.vue";
+import ReaderService from "@/services/client/reader.service";
 
 export default {
   components: {
-    AppHeader,
+    ClientAppHeader,
   },
   data() {
     return {
@@ -73,13 +73,13 @@ export default {
     async getInfor() {
       // Xử lý đăng xuất ở đây
       try {
-        const employeeResponse = await EmployeeService.getInfor();
-        const employee = employeeResponse.employee;
-        if (employee) {
-          this.formData.fullName = employee.fullName;
-          this.formData.email = employee.email;
-          this.formData.address = employee.address;
-          this.formData.phone = employee.phone;
+        const readerResponse = await ReaderService.getInfor();
+        const reader = readerResponse.reader;
+        if (reader) {
+          this.formData.fullName = reader.fullName;
+          this.formData.email = reader.email;
+          this.formData.address = reader.address;
+          this.formData.phone = reader.phone;
         } else {
           console.log("Employee not found");
         }
@@ -93,8 +93,8 @@ export default {
   },
 };
 </script>
-  
-<style scoped>
+    
+  <style scoped>
 .infor-page {
   margin-top: 30px;
 }
@@ -127,7 +127,9 @@ export default {
 }
 
 .infor-input {
-  width: calc(100% - 20px); /* Take up the width of the container minus 20px padding */
+  width: calc(
+    100% - 20px
+  ); /* Take up the width of the container minus 20px padding */
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;

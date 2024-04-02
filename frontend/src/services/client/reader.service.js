@@ -63,57 +63,9 @@ class ReaderService {
         }
     }
 
-
-    // async updateCart(userId, cart) {
-    //     try {
-    //         const response = await this.apiClient.put(`/${userId}`, { cart });
-    //         return response.data;
-    //     } catch (error) {
-    //         throw error;
-    //     }
-    // }
-
-    // async deleteProductCart(userId, cart) {
-    //     try {
-    //         const response = await this.apiClient.put(`/${userId}`, { cart });
-    //         return response.data;
-    //     } catch (error) {
-    //         throw error;
-    //     }
-    // }
-
-    // async deleteUser(userId) {
-    //     try {
-    //         const response = await this.apiClient.delete(`/${userId}`);
-    //         return response.data;
-    //     } catch (error) {
-    //         throw error;
-    //     }
-    // }
-
-    // async updateProductQuantity(userId, cart) {
-    //     try {
-    //         const response = await this.apiClient.put(`/${userId}`, { productId: productId, 
-    //             quantity: quantity,
-    //         });
-
-    //         // Update local storage if the server request is successful
-    //         const user = localStorage.getItem("user");
-    //         if (user) {
-    //             const userData = JSON.parse(user);
-    //             const cartItem = userData.cart.find((item) => item.productId === productId);
-    //             if (cartItem) {
-    //                 cartItem.quantity = quantity;
-    //                 localStorage.setItem("user", JSON.stringify(userData));
-    //             }
-    //         }
-
-    //         return response.data;
-    //     } catch (error) {
-    //         console.error("Error updating product quantity:", error);
-    //         throw error;
-    //     }
-    // }
+    async getInfor() {
+        return (await this.apiClient.get("/infor")).data;
+    }
 }
 
 export default new ReaderService();

@@ -1,43 +1,50 @@
 
 const requireAdminAuth = (to, from, next) => {
-    try {
-      const token = document.cookie.split('; ').find(row => row.startsWith('tokenUser')).split('=')[1];
-      if (token) {
-        next(); 
-      } else {
-        next('/auth/login');
-      }
-    } catch (error) {
+  try {
+    const token = document.cookie.split('; ').find(row => row.startsWith('tokenUser')).split('=')[1];
+    if (token) {
+      next();
+    } else {
       next('/auth/login');
     }
-  };
+  } catch (error) {
+    next('/auth/login');
+  }
+};
 
 
 const clientRoutes = [
-    {
-        path: "/books",
-        name: "book-client",
-        component: () => import("@/views/client/pages/books/ClientBook.vue"),
-        beforeEnter: requireAdminAuth
-    },
-    
-    {
-      path: "/reader/borrow",
-      name: "borrow-client",
-      component: () => import("@/views/client/pages/books/ClientBorrow.vue"),
+  {
+    path: "/books",
+    name: "book-client",
+    component: () => import("@/views/client/pages/books/ClientBook.vue"),
+    beforeEnter: requireAdminAuth
   },
 
-    {
-        path: "/reader/register",
-        name: "register-client",
-        component: () => import("@/views/client/pages/register/ClientRegister.vue"),
-    },
+  {
+    path: "/reader/borrow",
+    name: "borrow-client",
+    component: () => import("@/views/client/pages/books/ClientBorrow.vue"),
+    beforeEnter: requireAdminAuth
+  },
+  {
+    path: "/reader/infor",
+    name: "infor-client",
+    component: () => import("@/views/client/pages/infor/ClientInfor.vue"),
+    beforeEnter: requireAdminAuth
+  },
 
-    {
-        path: "/auth/login",
-        name: "login-client",
-        component: () => import("@/views/client/pages/login/ClientLogin.vue"),
-    },
+  {
+    path: "/reader/register",
+    name: "register-client",
+    component: () => import("@/views/client/pages/register/ClientRegister.vue"),
+  },
+
+  {
+    path: "/auth/login",
+    name: "login-client",
+    component: () => import("@/views/client/pages/login/ClientLogin.vue"),
+  },
 ];
 
 export default clientRoutes;

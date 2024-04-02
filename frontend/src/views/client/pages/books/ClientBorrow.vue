@@ -3,7 +3,8 @@
     <ClientAppHeader />
 
     <div class="container mt-3">
-      <h2>Quyển sách đã mượn</h2>
+      <h3>Quyển sách đã mượn</h3>
+      <p class="text-danger"><b><i>Lưu ý rằng, sách chỉ được mượn tối đa là 30 ngày.</i></b></p>
       <table class="table">
         <thead>
           <tr>

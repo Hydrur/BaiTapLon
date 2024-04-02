@@ -142,6 +142,19 @@ const changeStatus = asyncHandler(async (req, res) => {
     }
 })
 
+const getInfor = asyncHandler(async(req, res) => {
+    try {
+        const token = req.cookies.tokenUser;
+        const reader = await Reader.findOne({
+            token: token,
+        })
+        res.status(200).json({ message: 'Send employee successfully', reader });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+
+})
+
 module.exports = {
     create,
     addBook,
@@ -149,4 +162,5 @@ module.exports = {
     deleteBook,
     retrieveAllReaders,
     changeStatus,
+    getInfor,
 }
