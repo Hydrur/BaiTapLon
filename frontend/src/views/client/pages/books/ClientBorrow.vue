@@ -11,6 +11,8 @@
             <th>Ảnh sách</th>
             <th>Tên sách</th>
             <th>Số lượng</th>
+            <th>Ngày mượn</th>
+            <th>Ngày trả</th>
             <th>Trạng thái</th>
             <th>Hành động</th>
           </tr>
@@ -30,6 +32,8 @@
             </td>
             <td>{{ getBookTitle(borrowedBook.id_book) }}</td>
             <td>{{ borrowedBook.quantity }}</td>
+            <td>{{ borrowedBook.borrowDate }}</td>
+            <td>{{ borrowedBook.returnDate }}</td>
             <td class="text-primary">{{ borrowedBook.status }}</td>
             <td>
               <button

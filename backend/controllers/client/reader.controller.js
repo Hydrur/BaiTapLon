@@ -24,10 +24,10 @@ const addBook = asyncHandler(async (req, res) => {
             })
             let borrow = {};
 
-
-
             borrow.quantity = req.body.quantity;
             borrow.id_book = req.body.book_id;
+            borrow.borrowDate = req.body.borrowDate;
+            borrow.returnDate = req.body.returnDate;
             borrow.status = "processing";
 
             // Kiểm tra xem đã có quyển sách trong mảng borrow chưa
@@ -36,6 +36,10 @@ const addBook = asyncHandler(async (req, res) => {
             if (existingBook) {
                 // Nếu đã có quyển sách trong mảng borrow, cập nhật số lượng
                 existingBook.quantity += borrow.quantity;
+                existingBook.borrowDate = borrow.borrowDate;
+                existingBook.returnDate = borrow.returnDate;
+                existingBook.status = "processing";
+
             } else {
                 // Nếu chưa có quyển sách trong mảng borrow, thêm borrow vào mảng
                 reader.borrow.push(borrow);

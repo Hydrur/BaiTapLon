@@ -50,6 +50,26 @@
             v-model="formData.quantity"
           />
         </div>
+        <div class="form-item mb-3">
+          <label class="label" for="borrowDate">Ngày mượn:</label><br />
+          <input
+            class="input"
+            type="date"
+            id="borrowDate"
+            required
+            v-model="formData.borrowDate"
+          />
+        </div>
+        <div class="form-item mb-3">
+          <label class="label" for="returnDate">Ngày trả:</label><br />
+          <input
+            class="input"
+            type="date"
+            id="returnDate"
+            required
+            v-model="formData.returnDate"
+          />
+        </div>
 
         <button type="submit" class="btn btn-primary mb-3">Đăng ký mượn</button>
       </form>
@@ -70,6 +90,8 @@ export default {
     return {
       formData: {
         quantity: 0,
+        borrowDate:"",
+        returnDate:"",
         book_id: this.book._id,
       },
     };
@@ -80,6 +102,9 @@ export default {
         const formData = new FormData();
         formData.append("quantity", this.formData.quantity);
         formData.append("book_id", this.formData.book_id);
+        formData.append("borrowDate", this.formData.borrowDate);
+        formData.append("returnDate", this.formData.returnDate);
+        console.log(this.formData)
         const response = await ReaderService.addBook(this.formData);
         toast.success("Added successfully!", {
           autoClose: 1200,

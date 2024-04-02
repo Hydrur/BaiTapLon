@@ -41,6 +41,14 @@ const adminRoutes = [
     beforeEnter: requireAdminAuth,
     props: true
   },
+
+  {
+    path: "/admin/employee/infor",
+    name: "employee.infor",
+    component: () => import("@/views/admin/pages/infor/Infor.vue"),
+    beforeEnter: requireAdminAuth,
+    props: true
+  },
 //   {
 //     path: "/admin/*", // Sửa lại định tuyến này để bắt đầu bằng "/"
 //     name: "notfound",
