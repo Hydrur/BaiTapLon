@@ -58,7 +58,8 @@
 </template>
 
 <script>
-
+import { toast } from "vue3-toastify";
+import "vue3-toastify/dist/index.css";
 import ReaderService from "@/services/client/reader.service";
 
 export default {
@@ -85,7 +86,7 @@ export default {
         });
 
         setTimeout(() => {
-          this.$router.push({ name: "book" });
+          this.$router.push({ name: "borrow-client" });
         }, 800);
       } catch (error) {
         console.log(error);

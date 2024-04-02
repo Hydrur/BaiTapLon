@@ -46,7 +46,19 @@ const addBook = asyncHandler(async (req, res) => {
 
 
         // const user = await Reader.create(req.body);
-        res.status(200).json(user);
+        res.status(200).json("success");
+    } catch (error) {
+        res.status(500).json({ massage: `Error! ${error}` });
+    }
+})
+
+const getUser = asyncHandler(async (req, res) => {
+    try {
+        const tokenUser = req.headers.authorization.split(" ")[1];
+        const reader = await Reader.findOne({
+            token:tokenUser
+        })
+        res.status(200).json({ message: "Send reader successfully." , reader});
     } catch (error) {
         res.status(500).json({ massage: `Error! ${error}` });
     }
@@ -102,6 +114,7 @@ const deleteProductFromCart = asyncHandler(async (req, res) => {
 module.exports = {
     create,
     addBook,
+    getUser,
     updateCart,
     deleteProductFromCart,
 }

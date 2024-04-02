@@ -14,6 +14,15 @@ class ReaderService {
         }
     }
     
+    async retrieveReader(formData) {
+        try {
+            const { reader } = (await this.apiClient.get(`/user`, { headers: { Authorization: `Bearer ${formData.get("tokenUser")}` } })).data;
+            return reader;
+        } catch (error) {
+            throw error;
+        }
+    }
+
     async addBook(data) {
         try {
             const response = await this.apiClient.post(`/addbook`, data);

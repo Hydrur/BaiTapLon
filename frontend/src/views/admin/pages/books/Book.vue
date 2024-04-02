@@ -106,7 +106,6 @@ export default {
     booksStrings() {
       return this.books.map((book) => {
         const {
-          id_publisher,
           bookTitle,
           price,
           quantity,
@@ -115,7 +114,6 @@ export default {
           thumbnail,
         } = book;
         return [
-          id_publisher,
           bookTitle,
           price,
           quantity,

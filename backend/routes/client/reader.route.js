@@ -8,6 +8,8 @@ router.post('/register', controller.create)
 
 router.post('/addbook',authMiddleware.authRequire, controller.addBook)
 
+router.get('/user', controller.getUser)
+
 // router.put('/:id', users.updateFavorite)
 // router.put('/:id', users.updateCart)
 // router.put('/:id', users.deleteProductFromCart)

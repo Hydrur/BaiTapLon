@@ -22,6 +22,12 @@ const clientRoutes = [
     },
     
     {
+      path: "/reader/borrow",
+      name: "borrow-client",
+      component: () => import("@/views/client/pages/books/ClientBorrow.vue"),
+  },
+
+    {
         path: "/reader/register",
         name: "register-client",
         component: () => import("@/views/client/pages/register/ClientRegister.vue"),
