@@ -107,9 +107,6 @@ export default {
         formData.append("phone", this.formData.phone);
 
         const response = await ReaderService.create(this.formData);
-        console.log("formdata", formData);
-        console.log(response);
-        console.log(formData);
         toast.success("Added successfully!", {
           autoClose: 1200,
         });

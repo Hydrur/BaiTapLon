@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const Reader = require('../../models/reader.model');
-// [POST] /admin/auth/login
+// [POST] /auth/login
 module.exports.loginPost = async (req, res, next) => {
   try {
     const enteredEmail = req.body.email;
@@ -34,7 +34,7 @@ module.exports.loginPost = async (req, res, next) => {
 };
 
 
-// [GET] /admin/auth/logout
+// [GET] /auth/logout
 module.exports.logout = async (req, res) => {
   res.clearCookie("tokenUser");
   res.send({

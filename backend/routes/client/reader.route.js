@@ -2,8 +2,11 @@ const express = require("express");
 const router = express.Router();
 
 const controller = require("../../controllers/client/reader.controller");
+const authMiddleware = require("../../middlewares/client/auth.middleware");
 
 router.post('/register', controller.create)
+
+router.post('/addbook',authMiddleware.authRequire, controller.addBook)
 
 // router.put('/:id', users.updateFavorite)
 // router.put('/:id', users.updateCart)

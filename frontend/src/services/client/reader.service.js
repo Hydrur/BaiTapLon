@@ -1,114 +1,78 @@
 import createApiClient from "./api.reader"
 
 class ReaderService {
-    constructor(baseUrl = "/api/reader/register"){
+    constructor(baseUrl = "/api/reader"){
         this.apiClient = createApiClient(baseUrl)
     }
 
     async create(userData) {
         try {
-            const response = await this.apiClient.post('/', userData);
+            const response = await this.apiClient.post('/register', userData);
             return response.data;
         } catch (error) {
             throw error;
         }
     }
-
-    async getAllUsers() {
+    
+    async addBook(data) {
         try {
-            const response = await this.apiClient.get('/');
-            return response.data;
+            const response = await this.apiClient.post(`/addbook`, data);
+            return response;
         } catch (error) {
             throw error;
         }
     }
 
-    // async getFavorite(favorite) {
+    // async updateCart(userId, cart) {
     //     try {
-    //         const response = await this.apiClient.get('/', { favorite });
+    //         const response = await this.apiClient.put(`/${userId}`, { cart });
     //         return response.data;
     //     } catch (error) {
     //         throw error;
     //     }
     // }
 
-    async getUserById(userId) {
-        try {
-            const response = await this.apiClient.get(`/${userId}`);
-            return response.data;
-        } catch (error) {
-            throw error;
-        }
-    }
+    // async deleteProductCart(userId, cart) {
+    //     try {
+    //         const response = await this.apiClient.put(`/${userId}`, { cart });
+    //         return response.data;
+    //     } catch (error) {
+    //         throw error;
+    //     }
+    // }
 
-    async updateUser(userId, userData) {
-        try {
-            const response = await this.apiClient.put(`/${userId}`, userData);
-            return response.data;
-        } catch (error) {
-            throw error;
-        }
-    }
+    // async deleteUser(userId) {
+    //     try {
+    //         const response = await this.apiClient.delete(`/${userId}`);
+    //         return response.data;
+    //     } catch (error) {
+    //         throw error;
+    //     }
+    // }
 
-    async updateFavorite(userId, favorite) {
-        try {
-            const response = await this.apiClient.put(`/${userId}`, { favorite });
-            return response.data;
-        } catch (error) {
-            throw error;
-        }
-    }
+    // async updateProductQuantity(userId, cart) {
+    //     try {
+    //         const response = await this.apiClient.put(`/${userId}`, { productId: productId, 
+    //             quantity: quantity,
+    //         });
 
-    async updateCart(userId, cart) {
-        try {
-            const response = await this.apiClient.put(`/${userId}`, { cart });
-            return response.data;
-        } catch (error) {
-            throw error;
-        }
-    }
+    //         // Update local storage if the server request is successful
+    //         const user = localStorage.getItem("user");
+    //         if (user) {
+    //             const userData = JSON.parse(user);
+    //             const cartItem = userData.cart.find((item) => item.productId === productId);
+    //             if (cartItem) {
+    //                 cartItem.quantity = quantity;
+    //                 localStorage.setItem("user", JSON.stringify(userData));
+    //             }
+    //         }
 
-    async deleteProductCart(userId, cart) {
-        try {
-            const response = await this.apiClient.put(`/${userId}`, { cart });
-            return response.data;
-        } catch (error) {
-            throw error;
-        }
-    }
-
-    async deleteUser(userId) {
-        try {
-            const response = await this.apiClient.delete(`/${userId}`);
-            return response.data;
-        } catch (error) {
-            throw error;
-        }
-    }
-
-    async updateProductQuantity(userId, cart) {
-        try {
-            const response = await this.apiClient.put(`/${userId}`, { productId: productId, 
-                quantity: quantity,
-            });
-
-            // Update local storage if the server request is successful
-            const user = localStorage.getItem("user");
-            if (user) {
-                const userData = JSON.parse(user);
-                const cartItem = userData.cart.find((item) => item.productId === productId);
-                if (cartItem) {
-                    cartItem.quantity = quantity;
-                    localStorage.setItem("user", JSON.stringify(userData));
-                }
-            }
-
-            return response.data;
-        } catch (error) {
-            console.error("Error updating product quantity:", error);
-            throw error;
-        }
-    }
+    //         return response.data;
+    //     } catch (error) {
+    //         console.error("Error updating product quantity:", error);
+    //         throw error;
+    //     }
+    // }
 }
 
 export default new ReaderService();

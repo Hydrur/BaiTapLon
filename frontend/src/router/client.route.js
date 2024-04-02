@@ -1,7 +1,7 @@
 
 const requireAdminAuth = (to, from, next) => {
     try {
-      const token = document.cookie.split('; ').find(row => row.startsWith('token')).split('=')[1];
+      const token = document.cookie.split('; ').find(row => row.startsWith('tokenUser')).split('=')[1];
       if (token) {
         next(); 
       } else {
@@ -20,7 +20,7 @@ const clientRoutes = [
         component: () => import("@/views/client/pages/books/ClientBook.vue"),
         beforeEnter: requireAdminAuth
     },
-
+    
     {
         path: "/reader/register",
         name: "register-client",
