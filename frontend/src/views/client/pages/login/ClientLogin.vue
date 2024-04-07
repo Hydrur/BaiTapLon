@@ -1,42 +1,52 @@
 <!-- LoginForm.vue -->
 <template>
-  <div class="login_page">
-    <div class="container">
-      <div class="login">Đăng nhập</div>
-      <form @submit.prevent="login" class="form">
-        <div class="form-item">
-          <label for="email" class="label">Email:</label><br />
-          <input
-            v-model="formData.email"
-            type="text"
-            id="email"
-            class="input"
-          />
-        </div>
-        <div class="form-item">
-          <label for="password" class="label">Password</label><br />
-          <input
-            v-model="formData.password"
-            type="password"
-            id="password"
-            class="input"
-          />
-        </div>
-        <button type="submit" class="btn btn-primary">Đăng nhập</button>
-        <div class="register">
-          Bạn chưa có tài khoản?
-          <router-link :to="{ name: 'register-client' }">Đăng ký</router-link>
-        </div>
-      </form>
+  <div>
+    <ClientAppHeader />
+    <div class="login_page">
+      <div class="container">
+        <div class="login">Đăng nhập</div>
+        <form @submit.prevent="login" class="form">
+          <div class="form-item">
+            <label for="email" class="label">Email:</label><br />
+            <input
+              v-model="formData.email"
+              type="text"
+              id="email"
+              class="input"
+            />
+          </div>
+          <div class="form-item">
+            <label for="password" class="label">Password</label><br />
+            <input
+              v-model="formData.password"
+              type="password"
+              id="password"
+              class="input"
+            />
+          </div>
+          <button type="submit" class="btn btn-primary">Đăng nhập</button>
+          <div class="register">
+            Bạn chưa có tài khoản?
+            <router-link :to="{ name: 'register-client' }">Đăng ký</router-link>
+          </div>
+        </form>
+      </div>
     </div>
+    <ClientAppFooter />
   </div>
 </template>
   
   <script>
 import AuthorizationServiceClient from "../../../../services/client/authorization.service";
+import ClientAppHeader from "@/components/client/ClientAppHeader.vue";
+import ClientAppFooter from "@/components/client/ClientAppFooter.vue";
 import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
 export default {
+  components: {
+    ClientAppHeader,
+    ClientAppFooter,
+  },
   data() {
     return {
       formData: {
@@ -88,8 +98,7 @@ export default {
 .login_page {
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: 100vh;
+  align-items: center;  
   /* background: url("../../public/image/background_login.jpg") no-repeat center; */
   background-size: cover;
 }

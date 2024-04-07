@@ -47,17 +47,20 @@
         </div>
       </div>
     </div>
+    <ClientAppFooter/>
   </div>
 </template>
     
     <script>
 import "vue3-toastify/dist/index.css";
 import ClientAppHeader from "@/components/client/ClientAppHeader.vue";
+import ClientAppFooter from "@/components/client/ClientAppFooter.vue";
 import ReaderService from "@/services/client/reader.service";
 
 export default {
   components: {
     ClientAppHeader,
+    ClientAppFooter,
   },
   data() {
     return {

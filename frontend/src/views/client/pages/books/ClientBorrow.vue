@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div  class="page-wrapper">
     <ClientAppHeader />
 
     <div class="container mt-3">
@@ -49,18 +49,21 @@
         </tbody>
       </table>
     </div>
+    <ClientAppFooter/>
   </div>
 </template>
 
 
 <script>
 import ClientAppHeader from "@/components/client/ClientAppHeader.vue";
+import ClientAppFooter from "@/components/client/ClientAppFooter.vue";
 import BookService from "@/services/client/book.service";
 import ReaderService from "@/services/client/reader.service";
 
 export default {
   components: {
     ClientAppHeader,
+    ClientAppFooter,
   },
   // Đoạn mã xử lý đầy đủ sẽ trình bày bên dưới
   data() {
@@ -135,5 +138,14 @@ export default {
 
 .custom-margin {
   margin-right: 10px; /* hoặc bất kỳ giá trị nào bạn muốn */
+}
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Đảm bảo chiều cao tối thiểu của container là chiều cao của màn hình */
+}
+
+.container {
+  flex-grow: 1; /* Mở rộng container để chiếm hết phần còn lại của trang */
 }
 </style>

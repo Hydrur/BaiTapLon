@@ -45,12 +45,14 @@
         </div>
       </div>
     </div>
+    <ClientAppFooter/>
   </div>
 </template>
 
 <script>
 import ClientBookDetail from "@/components/client/ClientBookDetail.vue";
 import ClientAppHeader from "@/components/client/ClientAppHeader.vue";
+import ClientAppFooter from "@/components/client/ClientAppFooter.vue";
 import ClientInputSearch from "@/components/client/ClientInputSearch.vue";
 import ClientBookList from "@/components/client/ClientBookList.vue";
 import BookService from "@/services/client/book.service";
@@ -61,6 +63,7 @@ export default {
     ClientInputSearch,
     ClientBookList,
     ClientAppHeader,
+    ClientAppFooter,
   },
   // Đoạn mã xử lý đầy đủ sẽ trình bày bên dưới
   data() {
