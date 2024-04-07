@@ -47,6 +47,7 @@
         </div>
       </div>
     </div>
+    <AppFooter />
   </div>
 </template>
   
@@ -54,10 +55,12 @@
 import "vue3-toastify/dist/index.css";
 import AppHeader from "@/components/admin/AppHeader.vue";
 import EmployeeService from "@/services/admin/employee.service";
+import AppFooter from "@/components/admin/AppFooter.vue";
 
 export default {
   components: {
     AppHeader,
+    AppFooter,
   },
   data() {
     return {

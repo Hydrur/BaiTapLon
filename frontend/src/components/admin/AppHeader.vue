@@ -1,25 +1,28 @@
 <template>
-  <nav class="navbar navbar-expand navbar-dark bg-dark">
+  <nav class="navbar navbar-expand">
     <div class="navbar-brand-container">
-      <a href="/admin/books" class="navbar-brand">Ứng dụng Quản lý Sách</a>
+      <a href="/admin/books" class="navbar-brand">
+        <img src="../../../public/client/SpringBook.png" alt="" />
+      </a>
       <div class="mr-auto navbar-nav">
-        <li class="nav-item">
+        <li class="nav-item" style="width: 150px">
           <router-link :to="{ name: 'book' }" class="nav-link">
-            Sách
+            
+            <h6><b>Quản lý sách</b></h6>
             <i class="fa-solid fa-book"></i>
           </router-link>
         </li>
         <li class="nav-item" style="width: 200px">
           <router-link :to="{ name: 'book.borrow' }" class="nav-link">
-            Quản lý đơn mượn
-            <i class="fa-solid fa-book"></i>
+            <h6><b>Quản lý đơn mượn</b></h6>
+            <i class="fa-solid fa-basket-shopping"></i>
           </router-link>
         </li>
       </div>
     </div>
     <div class="logout-container">
       <button class="btn btn-primary">
-        <router-link :to="{ name: 'employee.infor' }" class="nav-link">
+        <router-link :to="{ name: 'employee.infor' }" class="nav-link m-0">
           Thông tin cá nhân
         </router-link>
       </button>
@@ -50,6 +53,12 @@ export default {
 </script>
 
 <style scoped>
+
+.navbar {
+  background-color: #c6f0a1;
+  height: 80px;
+}
+
 .navbar-brand-container {
   display: flex;
   align-items: center;

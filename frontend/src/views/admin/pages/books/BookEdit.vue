@@ -46,7 +46,8 @@
           </div>
 
           <div class="form-item">
-            <label class="label" for="publisherName">Tên nhà xuất bản:</label><br />
+            <label class="label" for="publisherName">Tên nhà xuất bản:</label
+            ><br />
             <input
               class="input"
               type="text"
@@ -66,7 +67,8 @@
           </div>
 
           <div class="form-item">
-            <label class="label" for="publisherAddress">Địa chỉ NXB:</label><br />
+            <label class="label" for="publisherAddress">Địa chỉ NXB:</label
+            ><br />
             <input
               class="input"
               type="text"
@@ -74,7 +76,6 @@
               v-model="formData.publisherAddress"
             />
           </div>
-        
 
           <div class="form-item">
             <label class="label" for="thumbnail">Ảnh sách</label><br />
@@ -95,13 +96,18 @@
         </form>
       </div>
     </div>
+    <AppFooter />
   </div>
 </template>
 
 <script>
 import BookService from "@/services/admin/book.service";
+import AppFooter from "@/components/admin/AppFooter.vue";
 
 export default {
+  components: {
+    AppFooter,
+  },
   data() {
     return {
       info: "Image data is being updated",
@@ -161,7 +167,7 @@ export default {
           !this.formData.bookTitle ||
           !this.formData.price ||
           !this.formData.quantity ||
-          !this.formData.author 
+          !this.formData.author
         ) {
           toast.error("Please fill in all required fields.", {
             autoClose: 3000,

@@ -1,58 +1,64 @@
 <template>
-  <div  class="page-wrapper">
+  <div class="page-wrapper">
     <ClientAppHeader />
 
     <div class="container mt-3">
       <h3>Quyển sách đã mượn</h3>
-      <p class="text-danger"><b><i>Lưu ý rằng, sách chỉ được mượn tối đa là 30 ngày.</i></b></p>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Ảnh sách</th>
-            <th>Tên sách</th>
-            <th>Số lượng</th>
-            <th>Ngày mượn</th>
-            <th>Ngày trả</th>
-            <th>Trạng thái</th>
-            <th>Hành động</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            v-for="(borrowedBook, index) in reader.borrow"
-            :key="borrowedBook._id"
-          >
-            <td>{{ index + 1 }}</td>
-            <td>
-              <img
-                :src="getBookImage(borrowedBook.id_book)"
-                alt="Book image"
-                width="100"
-              />
-            </td>
-            <td>{{ getBookTitle(borrowedBook.id_book) }}</td>
-            <td>{{ borrowedBook.quantity }}</td>
-            <td>{{ borrowedBook.borrowDate }}</td>
-            <td>{{ borrowedBook.returnDate }}</td>
-            <td class="text-primary">{{ borrowedBook.status }}</td>
-            <td>
-              <button
-                v-if="canDelete(borrowedBook.status)"
-                class="btn btn-danger"
-                @click="deleteBook(borrowedBook.id_book)"
-              >
-                Xóa
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <p class="text-danger">
+        <b><i>Lưu ý rằng, sách chỉ được mượn tối đa là 30 ngày.</i></b>
+      </p>
+      <template v-if="reader.borrow && reader.borrow.length > 0">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Ảnh sách</th>
+              <th>Tên sách</th>
+              <th>Số lượng</th>
+              <th>Ngày mượn</th>
+              <th>Ngày trả</th>
+              <th>Trạng thái</th>
+              <th>Hành động</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              v-for="(borrowedBook, index) in reader.borrow"
+              :key="borrowedBook._id"
+            >
+              <td>{{ index + 1 }}</td>
+              <td>
+                <img
+                  :src="getBookImage(borrowedBook.id_book)"
+                  alt="Book image"
+                  width="100"
+                />
+              </td>
+              <td>{{ getBookTitle(borrowedBook.id_book) }}</td>
+              <td>{{ borrowedBook.quantity }}</td>
+              <td>{{ borrowedBook.borrowDate }}</td>
+              <td>{{ borrowedBook.returnDate }}</td>
+              <td class="text-primary">{{ borrowedBook.status }}</td>
+              <td>
+                <button
+                  v-if="canDelete(borrowedBook.status)"
+                  class="btn btn-danger"
+                  @click="deleteBook(borrowedBook.id_book)"
+                >
+                  Xóa
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </template>
+      <template v-else>
+        <p><i>Bạn chưa có đăng ký đơn mượn nào.</i></p>
+      </template>
     </div>
-    <ClientAppFooter/>
+    <ClientAppFooter />
   </div>
 </template>
-
 
 <script>
 import ClientAppHeader from "@/components/client/ClientAppHeader.vue";

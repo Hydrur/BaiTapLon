@@ -61,6 +61,7 @@
         </table>
       </div>
     </div>
+    <AppFooter />
   </div>
 </template>
 
@@ -68,10 +69,12 @@
 import AppHeader from "@/components/admin/AppHeader.vue";
 import BookService from "@/services/admin/book.service";
 import ReaderService from "@/services/client/reader.service";
+import AppFooter from "@/components/admin/AppFooter.vue";
 
 export default {
   components: {
     AppHeader,
+    AppFooter,
   },
   data() {
     return {

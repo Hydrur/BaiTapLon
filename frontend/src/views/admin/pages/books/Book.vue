@@ -69,12 +69,14 @@
         </div>
       </div>
     </div>
+    <AppFooter/>
   </div>
 </template>
 
 <script>
 import BookDetail from "@/components/admin/BookDetail.vue";
 import AppHeader from "@/components/admin/AppHeader.vue";
+import AppFooter from "@/components/admin/AppFooter.vue";
 import InputSearch from "@/components/admin/InputSearch.vue";
 import BookList from "@/components/admin/BookList.vue";
 import BookService from "@/services/admin/book.service";
@@ -85,6 +87,7 @@ export default {
     InputSearch,
     BookList,
     AppHeader,
+    AppFooter,
   },
   // Đoạn mã xử lý đầy đủ sẽ trình bày bên dưới
   data() {

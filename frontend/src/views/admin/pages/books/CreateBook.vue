@@ -97,15 +97,20 @@
         </form>
       </div>
     </div>
+    <AppFooter />
   </div>
 </template>
 
 <script>
 import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
+import AppFooter from "@/components/admin/AppFooter.vue";
 import BookService from "@/services/admin/book.service";
 
 export default {
+  components: {
+    AppFooter,
+  },
   data() {
     return {
       formData: {
