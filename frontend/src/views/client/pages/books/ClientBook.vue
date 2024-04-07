@@ -3,18 +3,18 @@
     <ClientAppHeader />
     <div class="container mt-3">
       <div class="page row">
+        <img
+          src="../../../../../public/client/bannerhome.png"
+          alt=""
+          class="mb-3"
+        />
         <div class="col-md-10">
           <ClientInputSearch v-model="searchText" />
         </div>
         <div class="mt-3 col-8">
-          <h4>
-            Sách
-            <i class="fa-solid fa-book"></i>
-          </h4>
-
           <div class="">
             <button
-              class="btn btn-sm btn-primary custom-margin"
+              class="btn btn-sm btn-primary custom-margin mb-3"
               @click="refreshList()"
             >
               <i class="fas fa-redo"></i> Làm mới
@@ -36,6 +36,11 @@
               <i class="fa-solid fa-book"></i>
             </h4>
             <ClientBookDetail :book="activeBook" />
+          </div>
+          <div v-else>
+            <h4>Thông tin đặc biệt</h4>
+            <img src="../../../../../public/client/sider.png" style="width:100%;" alt="">
+            <img src="../../../../../public/client/sider2.png" style="width:100%;" alt="">
           </div>
         </div>
       </div>

@@ -3,7 +3,7 @@
         <input
             type="text"
             class="form-control"
-            placeholder="Nhập thông tin cần tìm"
+            placeholder="Nhập thông tin sách cần tìm"
             :value="modelValue"
             @input="updateModelValue"
             @keyup.enter="submit"

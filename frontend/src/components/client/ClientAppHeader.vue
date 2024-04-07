@@ -1,18 +1,26 @@
 <template>
-  <nav class="navbar navbar-expand navbar-dark bg-dark">
+  <div>
+  <div class="container d-flex justify-content-between">
+    <div>Bạn cần hỗ trợ: <b class="text-danger">02871086979</b></div>
+    <div> Hệ thống cửa hàngLiên hệ hỗ trợ (07:30 - 17:00)</div>
+  </div>
+  <nav class="navbar navbar-expand">
     <div class="navbar-brand-container">
-      <a href="/books" class="navbar-brand">Ứng dụng Mượn lý Sách</a>
+      <a href="/books" class="navbar-brand">
+        <img src="../../../public/client/SpringBook.png" alt="" />
+      </a>
       <div class="mr-auto navbar-nav">
         <li class="nav-item">
           <router-link :to="{ name: 'book-client' }" class="nav-link">
-            Sách
+            <h5><b>Sách</b></h5>
             <i class="fa-solid fa-book"></i>
           </router-link>
         </li>
-        <li class="nav-item" style="width: 150px">
+        <li class="nav-item" style="width: 180px">
           <router-link :to="{ name: 'borrow-client' }" class="nav-link">
-            Đơn mượn
-            <i class="fa-solid fa-book"></i>
+            
+            <h5><b>Đơn Mượn</b></h5>
+            <i class="fa-solid fa-basket-shopping"></i>
           </router-link>
         </li>
       </div>
@@ -20,7 +28,7 @@
     <div class="login-logout-register-container">
       <div v-if="isLoggedIn">
         <button class="btn btn-primary">
-          <router-link :to="{ name: 'infor-client' }" class="nav-link">
+          <router-link :to="{ name: 'infor-client' }" class="nav-link" style="margin:0;">
             Thông tin cá nhân
           </router-link>
         </button>
@@ -32,12 +40,13 @@
         <button class="btn btn-primary button-login" @click="login">
           Đăng Nhập
         </button>
-        <button class="btn btn-danger button-logout" @click="register">
+        <button class="btn btn-danger button-register" @click="register">
           Đăng Ký
         </button>
       </div>
     </div>
   </nav>
+</div>
 </template>
 
 <script>
@@ -99,6 +108,10 @@ export default {
 </script>
 
 <style scoped>
+.navbar {
+  background-color: #c6f0a1;
+  height: 80px;
+}
 .navbar-brand-container {
   display: flex;
   align-items: center;
