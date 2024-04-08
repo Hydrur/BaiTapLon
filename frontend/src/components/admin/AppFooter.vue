@@ -4,7 +4,7 @@
       <hr />
       <div class="footer__container container">
         <div class="footer__left">
-          <img src="../../../public/client/SpringBook.png" alt="" />
+          <img src="/client/SpringBook.png" alt="" />
           <p class="footer__title">Hệ Thống Nhà Sách SpringBook</p>
           <p class="footer__address">
             Trụ sở chính: 805 Hồng Bàng, Phường 09, Quận 5, Hồ Chí Minh, Vietnam
@@ -23,7 +23,7 @@
             </li>
             <li class="footer__item">
               <img
-                src="../../../public/client/logo-bct.webp"
+                src="/client/logo-bct.webp"
                 style="width: 250px"
                 alt=""
               />

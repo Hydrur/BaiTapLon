@@ -7,7 +7,7 @@
   <nav class="navbar navbar-expand">
     <div class="navbar-brand-container">
       <a href="/books" class="navbar-brand">
-        <img src="../../../public/client/SpringBook.png" alt="" />
+        <img src="/client/SpringBook.png" alt="" />
       </a>
       <div class="mr-auto navbar-nav">
         <li class="nav-item">

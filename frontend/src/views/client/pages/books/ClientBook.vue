@@ -4,7 +4,7 @@
     <div class="container mt-3">
       <div class="page row">
         <img
-          src="../../../../../public/client/bannerhome.png"
+          src="/client/bannerhome.png"
           alt=""
           class="mb-3"
         />
@@ -39,8 +39,8 @@
           </div>
           <div v-else>
             <h4>Thông tin đặc biệt</h4>
-            <img src="../../../../../public/client/sider.png" style="width:100%;" alt="">
-            <img src="../../../../../public/client/sider2.png" style="width:100%;" alt="">
+            <img src="/client/sider.png" style="width:100%;" alt="">
+            <img src="/client/sider2.png" style="width:100%;" alt="">
           </div>
         </div>
       </div>
