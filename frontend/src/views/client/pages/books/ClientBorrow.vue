@@ -38,7 +38,9 @@
               <td>{{ borrowedBook.quantity }}</td>
               <td>{{ borrowedBook.borrowDate }}</td>
               <td>{{ borrowedBook.returnDate }}</td>
-              <td class="text-primary">{{ borrowedBook.status }}</td>
+              <td class="text-primary">
+                {{ borrowedBook.status === 'accepted' ? 'Đã duyệt' : borrowedBook.status === 'refused' ? 'Từ chối' : borrowedBook.status === 'returned' ? 'Đã trả' : borrowedBook.status === 'processing' ? 'Chờ xử lí' : 'Unknown' }}
+              </td>
               <td>
                 <button
                   v-if="canDelete(borrowedBook.status)"

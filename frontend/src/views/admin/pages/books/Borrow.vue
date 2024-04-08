@@ -38,25 +38,27 @@
                 <td>{{ borrowedBook.quantity }}</td>
                 <td>{{ borrowedBook.borrowDate }}</td>
                 <td>{{ borrowedBook.returnDate }}</td>
-                <td class="text-primary">{{ borrowedBook.status }}</td>
+                <td class="text-primary">
+                  {{ borrowedBook.status === 'accepted' ? 'Đã duyệt' : borrowedBook.status === 'refused' ? 'Từ chối' : borrowedBook.status === 'returned' ? 'Đã trả' : borrowedBook.status === 'processing' ? 'Chờ xử lí' : 'Unknown' }}
+                </td>
                 <td>
                   <button
                     @click="changeStatus(reader, borrowedBook, 'accepted')"
                     class="btn btn-success"
                   >
-                    Accept
+                    Duyệt
                   </button>
                   <button
                     @click="changeStatus(reader, borrowedBook, 'refused')"
                     class="btn btn-danger"
                   >
-                    Refused
+                    Từ chối
                   </button>
                   <button
                     @click="changeStatus(reader, borrowedBook, 'returned')"
                     class="btn btn-warning"
                   >
-                    Returned
+                    Đã trả
                   </button>
                 </td>
               </tr>
