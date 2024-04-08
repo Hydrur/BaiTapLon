@@ -14,9 +14,9 @@
       <tbody>
         <tr
           v-for="(book, index) in paginatedBooks"
-          :key="book._id"
+          :key="[book._id, currentPage, booksPerPage]"
           :class="{ active: index === activeIndex }"
-          @click="updateActiveIndex(index)"
+          @click="updateActiveIndex(index + (currentPage-1)*booksPerPage)"
         >
           <td>{{ index + 1 }}</td>
           <td>

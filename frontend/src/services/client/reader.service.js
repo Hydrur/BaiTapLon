@@ -54,6 +54,16 @@ class ReaderService {
         }
     }
 
+    async getNumberBookBorrowed(id_book){
+        try {
+            const response = await this.apiClient.get(`/numberbookborrowed/${id_book}`);
+            console.log(response.data.borrowedBookQuantity)
+            return response.data.borrowedBookQuantity;
+        } catch (error) {
+            throw error;
+        }
+    }
+
     async deleteBook(id) {
         try {
             const response = await this.apiClient.delete(`/deletebook/${id}`);

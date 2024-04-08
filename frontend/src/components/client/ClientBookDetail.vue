@@ -14,6 +14,10 @@
       {{ book.quantity }}
     </div>
     <div class="p-1">
+      <strong>Số lượng sách còn lại: </strong>
+      {{ remainingBooks}}
+    </div>
+    <div class="p-1">
       <strong>Tác giả:</strong>
       {{ book.author }}
     </div>
@@ -46,6 +50,7 @@
             type="number"
             id="quantity"
             min="1"
+            max="3"
             required
             v-model="formData.quantity"
           />
@@ -89,12 +94,23 @@ export default {
   data() {
     return {
       formData: {
-        quantity: 0,
+        quantity: 1,
         borrowDate:"",
         returnDate:"",
         book_id: this.book._id,
       },
+      remainingBooks: 0,
     };
+  },
+  watch: {
+    // Giám sát sự thay đổi của prop 'book'
+    book: {
+      handler() {
+        // Gọi phương thức updateRemainingBooks() mỗi khi prop 'book' thay đổi
+        this.updateRemainingBooks();
+      },
+      deep: true, // Giám sát sâu vào các thuộc tính của 'book'
+    },
   },
   methods: {
     async add() {
@@ -115,10 +131,26 @@ export default {
         }, 800);
       } catch (error) {
         console.log(error);
+        const errorMessage = error.response?.data?.error || "Số lượng sách không đủ để mượn!";
+        toast.error(errorMessage, { autoClose: 3000 });
+        setTimeout(() => {
+          this.$router.push({ name: "borrow-client" });
+        }, 800);
+      }
+    },
+    async updateRemainingBooks(){
+      try {
+        const response = await ReaderService.getNumberBookBorrowed(this.book._id);
+        this.remainingBooks = this.book.quantity - response;
+      } catch (error) {
+        console.log(error);
         const errorMessage = error.response?.data?.error || "Error!";
         toast.error(errorMessage, { autoClose: 3000 });
       }
     },
+  },
+  mounted() {
+    this.updateRemainingBooks();
   },
 };
 </script>

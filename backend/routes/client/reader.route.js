@@ -20,4 +20,9 @@ router.post('/changestatus/:readerId/:bookId', controller.changeStatus)
 router.get('/infor', controller.getInfor)
 
 
+router.get('/numberbookborrowed/:id_book', controller.getNumberBookBorrowed)
+
+
+
+
 module.exports = router;

@@ -2,63 +2,67 @@
   <div>
     <AppHeader />
     <div class="container mt-3">
-      <h3 class="text-danger"><b><i>Các đơn mượn sách</i></b></h3>
+      <h3 class="text-danger">
+        <b><i>Các đơn mượn sách</i></b>
+      </h3>
       <div v-for="(reader, readerIndex) in readers" :key="readerIndex">
-        <h4>{{ reader.fullName }}</h4>
-        <table class="table">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Ảnh sách</th>
-              <th>Tên sách</th>
-              <th>Số lượng</th>
-              <th>Ngày mượn</th>
-              <th>Ngày trả</th>
-              <th>Trạng thái</th>
-              <th>Hành động</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr
-              v-for="(borrowedBook, bookIndex) in reader.borrow"
-              :key="bookIndex"
-            >
-              <td>{{ bookIndex + 1 }}</td>
-              <td>
-                <img
-                  :src="getBookImage(borrowedBook.id_book)"
-                  alt="Book image"
-                  width="100"
-                />
-              </td>
-              <td>{{ getBookTitle(borrowedBook.id_book) }}</td>
-              <td>{{ borrowedBook.quantity }}</td>
-              <td>{{ borrowedBook.borrowDate }}</td>
-              <td>{{ borrowedBook.returnDate }}</td>
-              <td class="text-primary">{{ borrowedBook.status }}</td>
-              <td>
-                <button
-                  @click="changeStatus(reader, borrowedBook, 'accepted')"
-                  class="btn btn-success"
-                >
-                  Accept
-                </button>
-                <button
-                  @click="changeStatus(reader, borrowedBook, 'refused')"
-                  class="btn btn-danger"
-                >
-                  Refused
-                </button>
-                <button
-                  @click="changeStatus(reader, borrowedBook, 'returned')"
-                  class="btn btn-warning"
-                >
-                  Returned
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <template v-if="reader.borrow.length > 0">
+          <h4>{{ reader.fullName }}</h4>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Ảnh sách</th>
+                <th>Tên sách</th>
+                <th>Số lượng</th>
+                <th>Ngày mượn</th>
+                <th>Ngày trả</th>
+                <th>Trạng thái</th>
+                <th>Hành động</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                v-for="(borrowedBook, bookIndex) in reader.borrow"
+                :key="bookIndex"
+              >
+                <td>{{ bookIndex + 1 }}</td>
+                <td>
+                  <img
+                    :src="getBookImage(borrowedBook.id_book)"
+                    alt="Book image"
+                    width="100"
+                  />
+                </td>
+                <td>{{ getBookTitle(borrowedBook.id_book) }}</td>
+                <td>{{ borrowedBook.quantity }}</td>
+                <td>{{ borrowedBook.borrowDate }}</td>
+                <td>{{ borrowedBook.returnDate }}</td>
+                <td class="text-primary">{{ borrowedBook.status }}</td>
+                <td>
+                  <button
+                    @click="changeStatus(reader, borrowedBook, 'accepted')"
+                    class="btn btn-success"
+                  >
+                    Accept
+                  </button>
+                  <button
+                    @click="changeStatus(reader, borrowedBook, 'refused')"
+                    class="btn btn-danger"
+                  >
+                    Refused
+                  </button>
+                  <button
+                    @click="changeStatus(reader, borrowedBook, 'returned')"
+                    class="btn btn-warning"
+                  >
+                    Returned
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </template>
       </div>
     </div>
     <AppFooter />

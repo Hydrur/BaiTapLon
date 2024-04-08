@@ -4,9 +4,9 @@
       <div
         class="book-card"
         v-for="(book, index) in paginatedBooks"
-        :key="book._id"
+        :key="[book._id, currentPage, itemsPerPage]"
         :class="{ active: index === activeIndex }"
-        @click="updateActiveIndex(index)"
+        @click="updateActiveIndex(index + (currentPage-1)*itemsPerPage)"
       >
         <img
           :src="'http://localhost:3000/uploads/' + book.thumbnail"
