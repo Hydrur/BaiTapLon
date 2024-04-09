@@ -23,28 +23,6 @@ class ReaderService {
         }
     }
 
-    //Dùng bên Admin quản lí mượn sách, để đở ở đây
-    async retrieveAllReaders() {
-        try {
-            return (await this.apiClient.get("/retrieveallreaders")).data;
-        } catch (error) {
-            throw error;
-        }
-    }
-    //Dùng bên Admin quản lí mượn sách, để đở ở đây
-    async changeStatus(readerId, bookId, status) {
-        try {
-            // Gọi đến ReaderService để thay đổi trạng thái của sách
-            const response = await this.apiClient.post(`/changestatus/${readerId}/${bookId}`, { status });
-
-            // Trả về dữ liệu phản hồi từ server
-            return response.data;
-        } catch (error) {
-            throw error;
-        }
-    }
-
-
     async addBook(data) {
         try {
             const response = await this.apiClient.post(`/addbook`, data);

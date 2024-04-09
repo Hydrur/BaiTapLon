@@ -1,5 +1,5 @@
 
-const requireAdminAuth = (to, from, next) => {
+const requireClientAuth = (to, from, next) => {
   try {
     const token = document.cookie.split('; ').find(row => row.startsWith('tokenUser')).split('=')[1];
     if (token) {
@@ -18,20 +18,20 @@ const clientRoutes = [
     path: "/books",
     name: "book-client",
     component: () => import("@/views/client/pages/books/ClientBook.vue"),
-    beforeEnter: requireAdminAuth
+    beforeEnter: requireClientAuth
   },
 
   {
     path: "/reader/borrow",
     name: "borrow-client",
     component: () => import("@/views/client/pages/books/ClientBorrow.vue"),
-    beforeEnter: requireAdminAuth
+    beforeEnter: requireClientAuth
   },
   {
     path: "/reader/infor",
     name: "infor-client",
     component: () => import("@/views/client/pages/infor/ClientInfor.vue"),
-    beforeEnter: requireAdminAuth
+    beforeEnter: requireClientAuth
   },
 
   {

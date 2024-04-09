@@ -1,9 +1,9 @@
-
 const requireAdminAuth = (to, from, next) => {
   try {
-    const token = document.cookie.split('; ').find(row => row.startsWith('token')).split('=')[1];
+    
+    const token = document.cookie.split(';').find(cookie => /\btoken\b/.test(cookie));
     if (token) {
-      next(); 
+      next();
     } else {
       next('/admin/auth/login');
     }
@@ -24,14 +24,12 @@ const adminRoutes = [
     name: "book.edit",
     component: () => import("@/views/admin/pages/books/BookEdit.vue"),
     beforeEnter: requireAdminAuth,
-    props: true
   },
   {
     path: "/admin/books/create",
     name: "book.add",
     component: () => import("@/views/admin/pages/books/CreateBook.vue"),
     beforeEnter: requireAdminAuth,
-    props: true
   },
 
   {
@@ -39,7 +37,6 @@ const adminRoutes = [
     name: "book.borrow",
     component: () => import("@/views/admin/pages/books/Borrow.vue"),
     beforeEnter: requireAdminAuth,
-    props: true
   },
 
   {
@@ -47,7 +44,6 @@ const adminRoutes = [
     name: "employee.infor",
     component: () => import("@/views/admin/pages/infor/Infor.vue"),
     beforeEnter: requireAdminAuth,
-    props: true
   },
 //   {
 //     path: "/admin/*", // Sửa lại định tuyến này để bắt đầu bằng "/"
@@ -63,13 +59,11 @@ const adminRoutes = [
     path: "/admin/auth/register",
     name: "register",
     component: () => import("@/views/admin/pages/register/Register.vue"),
-    props: true
   },
   {
     path: "/admin/auth/login",
     name: "login",
     component: () => import("@/views/admin/pages/login/Login.vue"),
-    props: true
   },
 ];
 

@@ -128,49 +128,6 @@ const deleteBook = asyncHandler(async (req, res) => {
         res.status(500).json({ massage: `Error! ${error}` });
     }
 })
-
-const retrieveAllReaders = asyncHandler(async (req, res) => {
-    try {
-        const readers = await Reader.find({});
-        res.status(200).json(readers);
-    } catch (error) {
-        res.status(500);
-        throw new Error(error.message)
-    }
-})
-
-const changeStatus = asyncHandler(async (req, res) => {
-    try {
-        // Lấy thông tin từ request
-        const { readerId, bookId } = req.params;
-        const { status } = req.body;
-
-        // Kiểm tra xem reader và book có tồn tại không
-        const reader = await Reader.findById(readerId);
-        if (!reader) {
-            res.status(404).json({ message: "Reader not found." });
-            return;
-        }
-        const bookIndex = reader.borrow.findIndex(book => book.id_book === bookId);
-        if (bookIndex === -1) {
-            res.status(404).json({ message: "Book not found." });
-            return;
-        }
-        console.log("bookIndex", bookIndex)
-        // Thay đổi trạng thái sách
-        reader.borrow[bookIndex].status = status;
-
-        // // Lưu thay đổi vào CSDL
-        await reader.save();
-
-        // Trả về thông báo thành công
-        res.status(200).json({ message: "Status updated successfully." });
-    } catch (error) {
-        res.status(500);
-        throw new Error(error.message)
-    }
-})
-
 const getInfor = asyncHandler(async (req, res) => {
     try {
         const token = req.cookies.tokenUser;
@@ -216,8 +173,6 @@ module.exports = {
     addBook,
     getUser,
     deleteBook,
-    retrieveAllReaders,
-    changeStatus,
     getInfor,
     getNumberBookBorrowed,
 }

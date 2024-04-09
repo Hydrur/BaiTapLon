@@ -13,9 +13,9 @@ module.exports.authRequire = async (req, res, next) => {
   if (!user) {
     if (req.cookies.token) {
       res.clearCookie("token");
-      return res.redirect('http:/localhost:3001/admin/auth/login');
+      return res.redirect('http://localhost:3001/admin/auth/login');
     }
-    return res.redirect('http:/localhost:3001/admin/auth/login');
+    return res.redirect('http://localhost:3001/admin/auth/login');
   }
 
 

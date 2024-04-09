@@ -74,7 +74,7 @@
 <script>
 import AppHeader from "@/components/admin/AppHeader.vue";
 import BookService from "@/services/admin/book.service";
-import ReaderService from "@/services/client/reader.service";
+import EmplpoyeeService from "@/services/admin/employee.service";
 import AppFooter from "@/components/admin/AppFooter.vue";
 
 export default {
@@ -98,14 +98,14 @@ export default {
     },
     async retrieveReaders() {
       try {
-        this.readers = await ReaderService.retrieveAllReaders();
+        this.readers = await EmplpoyeeService.retrieveAllReaders();
       } catch (error) {
         console.log(error);
       }
     },
     async changeStatus(reader, borrowedBook, status) {
       try {
-        const response = await ReaderService.changeStatus(
+        const response = await EmplpoyeeService.changeStatus(
           reader._id,
           borrowedBook.id_book,
           status
