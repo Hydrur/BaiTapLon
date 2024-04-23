@@ -41,7 +41,7 @@ export default {
   data() {
     return {
       currentPage: 1,
-      itemsPerPage: 6,
+      itemsPerPage: 8,
     };
   },
   computed: {
@@ -86,7 +86,7 @@ export default {
 .book-card {
   background-color: #f9f9f9;
   border: 1px solid #ddd;
-  max-width: 200px; /* Kích thước tối đa của mỗi ô sách */
+  max-width: 300px; /* Kích thước tối đa của mỗi ô sách */
   border-radius: 10px;
 }
 

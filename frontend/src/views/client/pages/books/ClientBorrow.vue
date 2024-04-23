@@ -11,14 +11,14 @@
         <table class="table">
           <thead>
             <tr>
-              <th>#</th>
-              <th>Ảnh sách</th>
-              <th>Tên sách</th>
-              <th>Số lượng</th>
-              <th>Ngày mượn</th>
-              <th>Ngày trả</th>
-              <th>Trạng thái</th>
-              <th>Hành động</th>
+              <th class="tr-thead">#</th>
+              <th class="tr-thead">Ảnh sách</th>
+              <th class="tr-thead">Tên sách</th>
+              <th class="tr-thead">Số lượng</th>
+              <th class="tr-thead">Ngày mượn</th>
+              <th class="tr-thead">Ngày trả</th>
+              <th class="tr-thead">Trạng thái</th>
+              <th class="tr-thead">Hành động</th>
             </tr>
           </thead>
           <tbody>
@@ -155,5 +155,9 @@ export default {
 
 .container {
   flex-grow: 1; /* Mở rộng container để chiếm hết phần còn lại của trang */
+}
+
+.tr-thead{
+  background-color: #c6f0a1;
 }
 </style>

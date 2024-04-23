@@ -11,14 +11,13 @@
       </a>
       <div class="mr-auto navbar-nav">
         <li class="nav-item">
-          <router-link :to="{ name: 'book-client' }" class="nav-link">
+          <router-link :to="{ name: 'book-client' }" class="nav-link" :class="{ 'active-link': $route.name === 'book-client' }">
             <h5><b>Sách</b></h5>
             <i class="fa-solid fa-book"></i>
           </router-link>
         </li>
-        <li class="nav-item" style="width: 180px">
-          <router-link :to="{ name: 'borrow-client' }" class="nav-link">
-            
+        <li class="nav-item" style="width: 140px">
+          <router-link :to="{ name: 'borrow-client' }" class="nav-link" :class="{ 'active-link': $route.name === 'borrow-client' }">
             <h5><b>Đơn Mượn</b></h5>
             <i class="fa-solid fa-basket-shopping"></i>
           </router-link>
@@ -130,7 +129,7 @@ export default {
 .nav-link {
   display: flex;
   align-items: center; /* Canh chỉnh chữ và biểu tượng sách theo chiều ngang */
-  margin-right: 15px; /* Khoảng cách giữa các mục nav */
+   /* Khoảng cách giữa các mục nav */
 }
 
 .fa-book {
@@ -139,5 +138,8 @@ export default {
 
 .btn-danger {
   margin-left: 15px;
+}
+.nav-link.active-link {
+    text-decoration: underline;
 }
 </style>

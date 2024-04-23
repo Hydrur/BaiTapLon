@@ -3,49 +3,38 @@
     <ClientAppHeader />
     <div class="container mt-3">
       <div class="page row">
-        <img
-          src="/client/bannerhome.png"
-          alt=""
-          class="mb-3"
-        />
-        <div class="col-md-10">
+        <img src="/client/bannerhome.png" alt="" class="mb-3" />
+        <div class="col-md-12">
           <ClientInputSearch v-model="searchText" />
         </div>
-        <div class="mt-3 col-8">
+        <div class="pt-3">
           <div class="">
-            <button
-              class="btn btn-sm btn-primary custom-margin mb-3"
-              @click="refreshList()"
-            >
+            <button class="btn btn-sm btn-primary custom-margin mb-3" @click="refreshList()">
               <i class="fas fa-redo"></i> Làm mới
             </button>
           </div>
 
-          <ClientBookList
-            v-if="filteredBooksCount > 0"
-            :books="filteredBooks"
-            v-model:activeIndex="activeIndex"
-          />
-          <p v-else>Không có liên hệ nào.</p>
+          <ClientBookList v-if="filteredBooksCount > 0" :books="filteredBooks" v-model:activeIndex="activeIndex" />
+          <p v-else>Không có sách trong kho.</p>
         </div>
+        <!-- Overlay và phần chi tiết sách -->
 
-        <div class="mt-3 col-4">
-          <div v-if="activeBook">
-            <h4>
-              Chi tiết đầu sách
-              <i class="fa-solid fa-book"></i>
-            </h4>
-            <ClientBookDetail :book="activeBook" />
-          </div>
-          <div v-else>
-            <h4>Thông tin đặc biệt</h4>
-            <img src="/client/sider.png" style="width:100%;" alt="">
-            <img src="/client/sider2.png" style="width:100%;" alt="">
+        <div v-if="activeBook" class="overlay-container" @mousedown="handleOverlayClick">
+          <div class="overlay">
+            <div class="book-details-container">
+              <div>
+                <h4>
+                  Chi tiết đầu sách
+                  <i class="fa-solid fa-book"></i>
+                </h4>
+                <ClientBookDetail :book="activeBook" />
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <ClientAppFooter/>
+    <ClientAppFooter />
   </div>
 </template>
 
@@ -133,6 +122,17 @@ export default {
       this.searchText = "";
       this.activeIndex = -1;
     },
+    handleOverlayClick(event) {
+      // Kiểm tra xem người dùng có nhấp vào phần chi tiết sách hay không
+      const isInsideDetail = event.target.closest('.book-details-container');
+      if (!isInsideDetail) {
+        // Nếu không, đóng overlay
+        this.closeOverlay();
+      }
+    },
+    closeOverlay() {
+      this.activeIndex = -1;
+    },
   },
   mounted() {
     this.refreshList();
@@ -146,6 +146,41 @@ export default {
 }
 
 .custom-margin {
-  margin-right: 10px; /* hoặc bất kỳ giá trị nào bạn muốn */
+  margin-right: 10px;
+  /* hoặc bất kỳ giá trị nào bạn muốn */
+}
+
+.book-details-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  width: 65%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.overlay-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  /* Màu nền đậm */
+  z-index: 222;
+  /* Đặt z-index thấp hơn overlay-container để hiển thị bên dưới */
 }
 </style>

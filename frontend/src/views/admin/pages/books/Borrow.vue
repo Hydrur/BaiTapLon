@@ -7,18 +7,18 @@
       </h3>
       <div v-for="(reader, readerIndex) in readers" :key="readerIndex">
         <template v-if="reader.borrow.length > 0">
-          <h4>{{ reader.fullName }}</h4>
+          <h4>Đọc giả: {{ reader.fullName }}</h4>
           <table class="table">
             <thead>
               <tr>
-                <th>#</th>
-                <th>Ảnh sách</th>
-                <th>Tên sách</th>
-                <th>Số lượng</th>
-                <th>Ngày mượn</th>
-                <th>Ngày trả</th>
-                <th>Trạng thái</th>
-                <th>Hành động</th>
+                <th class="tr-thead">#</th>
+                <th class="tr-thead">Ảnh sách</th>
+                <th class="tr-thead">Tên sách</th>
+                <th class="tr-thead">Số lượng</th>
+                <th class="tr-thead">Ngày mượn</th>
+                <th class="tr-thead">Ngày trả</th>
+                <th class="tr-thead">Trạng thái</th>
+                <th class="tr-thead">Hành động</th>
               </tr>
             </thead>
             <tbody>
@@ -45,12 +45,14 @@
                   <button
                     @click="changeStatus(reader, borrowedBook, 'accepted')"
                     class="btn btn-success"
+                    style="margin-right: 5px;"
                   >
                     Duyệt
                   </button>
                   <button
                     @click="changeStatus(reader, borrowedBook, 'refused')"
                     class="btn btn-danger"
+                    style="margin-right: 5px;"
                   >
                     Từ chối
                   </button>
@@ -136,5 +138,9 @@ export default {
 <style scoped>
 .page {
   text-align: left;
+}
+
+.tr-thead{
+  background-color: #c6f0a1;
 }
 </style>

@@ -6,14 +6,14 @@
       </a>
       <div class="mr-auto navbar-nav">
         <li class="nav-item" style="width: 150px">
-          <router-link :to="{ name: 'book' }" class="nav-link">
+          <router-link :to="{ name: 'book' }" class="nav-link" :class="{ 'active-link': $route.name === 'book' }">
             
             <h6><b>Quản lý sách</b></h6>
             <i class="fa-solid fa-book"></i>
           </router-link>
         </li>
         <li class="nav-item" style="width: 200px">
-          <router-link :to="{ name: 'book.borrow' }" class="nav-link">
+          <router-link :to="{ name: 'book.borrow' }" class="nav-link" :class="{ 'active-link': $route.name === 'book.borrow' }">
             <h6><b>Quản lý đơn mượn</b></h6>
             <i class="fa-solid fa-basket-shopping"></i>
           </router-link>
@@ -86,5 +86,9 @@ export default {
 
 .btn-danger {
   margin-left: 15px;
+}
+
+.nav-link.active-link {
+    text-decoration: underline;
 }
 </style>
