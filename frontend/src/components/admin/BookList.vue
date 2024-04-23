@@ -101,7 +101,7 @@ export default {
 
 <style>
 .img-book {
-  height: 90px;
+  height: auto;
   width: 90px;
 }
 </style>

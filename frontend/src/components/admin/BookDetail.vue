@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div class="p-1 d-flex justify-content-center align-items-center">
+      <img :src="'http://localhost:3000/uploads/' + book.thumbnail" class="img-book" alt="">
+    </div>
     <hr>
     <div class="p-1">
       <strong>Tên sách:</strong>
@@ -40,3 +43,10 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.img-book {
+  height: auto;
+  width: 120px;
+}
+</style>
